@@ -31,10 +31,10 @@ class case:
         return str(self.x) + ','+str(self.y)
     
     def draw(self):
-        #if self.color=="red":
-            #cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") ik it's sketchy, c'est juste que idk how you update your thing
-            #cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
-            #break
+        if self.color=="red":
+            cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") ik it's sketchy, c'est juste que idk how you update your thing
+            cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
+            break
         cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
 
     def boat(self):
@@ -61,6 +61,20 @@ class case:
         else:
             self.case_attaquee=False
             self.draw()
+"""
+    def check_surrounding(self): #check s'il n'y a pas de bateau autour
+        for i in range(-1,1):
+            for j in range(-1,1):
+                if self.(x+i) and self.(x+j)==True:
+                
+                a=self.(x+i)
+                b=self.(x+j)
+                if [a][b].bateau==True:
+                
+                self.x=self.(x+i)
+                self.y==self.(x+j)
+                if self.bateau==True:
+"""                 
 
 
 cases=[]
