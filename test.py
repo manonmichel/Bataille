@@ -31,6 +31,10 @@ class case:
         return str(self.x) + ','+str(self.y)
     
     def draw(self):
+        #if self.color=="red":
+            #cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") ik it's sketchy, c'est juste que idk how you update your thing
+            #cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
+            #break
         cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
 
     def boat(self):
@@ -44,11 +48,12 @@ class case:
         couleur="white"
         if self.bateau==True:
             couleur="grey"
-        elif self.case_attaquee==True and self.bateau==True:
-            couleur="red"
-        elif self.case_attaquee==True and self.bateau==False:
+            if self.case_attaquee==True:
+                couleur="red" #(C'est ou que tu execute la fonction?(si c'est dans draw, faut mettre un if "red" le truc et une break))
+        elif self.case_attaquee==True:
             couleur="black"
         return couleur
+    
     def attacked(self):
         if self.case_attaquee==False:
             self.case_attaquee=True
@@ -56,7 +61,6 @@ class case:
         else:
             self.case_attaquee=False
             self.draw()
-
 
 
 cases=[]
