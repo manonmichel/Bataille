@@ -8,9 +8,9 @@ Created on Sat Apr  1 21:57:41 2017
 import tkinter as tk
 
 #==============================================================================
-hauteurcadre=500
-largeurcadre=500
-taillejeu="1000x1000"
+hauteurcadre=350
+largeurcadre=350
+taillejeu="800x800"
 global positionbateau
 positionbateau=[]
 l=largeurcadre/11
@@ -20,24 +20,74 @@ h=hauteurcadre/11
 master = tk.Tk()
 master.title("Bataille Navale")
 master.geometry(taillejeu)
-tk.Frame(master).grid()
-cadre=tk.Canvas(master, width=hauteurcadre, height=largeurcadre,bg="white")
-cadre.grid(column=0, row=0)
-cadre2=tk.Canvas(master, width=hauteurcadre, height=largeurcadre,bg="white")
-cadre2.grid(column=1, row=0)
 
+master.rowconfigure(0, weight=15)
+master.rowconfigure(1, weight=1)
+master.rowconfigure(2, weight=15)
 
+cadre1 = tk.Canvas(master, width=hauteurcadre, height=largeurcadre,bg="white")
+cadre1.grid(column=1,row=0)
+cadre2= tk.Canvas(master, width=hauteurcadre, height=largeurcadre,bg="white")
+cadre2.grid(column=1,row=2)
+empty1=tk.Label(master)
+empty1.grid(column=0,row=1)
+empty2=tk.Label(master)
+empty2.grid(column=1,row=1)
+boatframe=tk.Canvas(master, width=450, height=300)
+boatframe.grid(column=0,row=2, sticky="N")
 
+def boat_selection():
+    l=largeurcadre/11
+    #h=hauteurcadre/11
+    
+    b5_coord = (l+300),10, (l+300),50, (l+50),50, (l+50),10
+    b4_coord = (l+270),80, (l+270),120, (l+80),120, (l+80),80
+    b3_coord = (l+240),150, (l+240),190, (l+110),190, (l+110),150
+    b2_coord = (l+210),220, (l+210),260, (l+140),260, (l+140),220
+    
+    """
+    for i in range (2,5): 
+        bi=boatframe.create_polygon(bi_coord, fill="blue")
+        def clicked_bi(event):
+            print("Boat i selected")
+            boatframe.create_polygon(bi_coord, fill="grey")
+        boatframe.tag_bind(bi,"<Button-1>",clicked_bi)
+    """
+    
+    b5=boatframe.create_polygon(b5_coord, fill="blue")
+    b4=boatframe.create_polygon(b4_coord, fill="blue")
+    b3=boatframe.create_polygon(b3_coord, fill="blue")
+    b2=boatframe.create_polygon(b2_coord, fill="blue")
+    
+    def clicked_b5(event):
+        print("Boat 5 selected")
+        boatframe.create_polygon(b5_coord, fill="grey")
+    def clicked_b4(event):
+        print("Boat 4 selected")
+        boatframe.create_polygon(b4_coord, fill="grey")
+    def clicked_b3(event):
+        print("Boat 3 selected")
+        boatframe.create_polygon(b3_coord, fill="grey")
+    def clicked_b2(event):
+        print("Boat 2 selected")
+        boatframe.create_polygon(b2_coord, fill="grey")
+        
+    boatframe.tag_bind(b5,"<Button-1>",clicked_b5)
+    boatframe.tag_bind(b4,"<Button-1>",clicked_b4)
+    boatframe.tag_bind(b3,"<Button-1>",clicked_b3)
+    boatframe.tag_bind(b2,"<Button-1>",clicked_b2) 
+        
+            
 def grille():   #def grille
     l=largeurcadre/11
     h=hauteurcadre/11
     lettre=["A","B","C","D","E","F","G","H","I","J","H"]
 
     for i in range(11):
-        cadre.create_line(l*i,0,l*i,hauteurcadre)
-        cadre.create_line(0,h*i,hauteurcadre,h*i)
-        cadre.create_text(largeurcadre/22,l*i+(3*largeurcadre/22),text=i+1)
-        cadre.create_text(l*i+(3*hauteurcadre/22),hauteurcadre/22,text=lettre[i])
+        cadre1.create_line(l*i,0,l*i,hauteurcadre)
+        cadre1.create_line(0,h*i,hauteurcadre,h*i)
+        cadre1.create_text(largeurcadre/22,l*i+(3*largeurcadre/22),text=i+1)
+        cadre1.create_text(l*i+(3*hauteurcadre/22),hauteurcadre/22,text=lettre[i])
         
         cadre2.create_line(l*i,0,l*i,hauteurcadre)
         cadre2.create_line(0,h*i,hauteurcadre,h*i)
@@ -53,13 +103,13 @@ def position(x,y):  #def des quatres coins d'une case
   
 def colorier_une_case(x,y):  #fonction qui colorie une case
     posx0,posx1,posy0,posy1=position(x,y)
-    cadre.create_rectangle(posx0,posy0,posx1,posy1,fill="grey")    
+    cadre1.create_rectangle(posx0,posy0,posx1,posy1,fill="grey")    
 
 def attack(x,y):    #fait une croix dans la case
     #legalattack(x,y)    
     posx0,posx1,posy0,posy1=position(x,y)
-    cadre.create_line(posx0,posy0,posx1,posy1,fill="red")
-    cadre.create_line(posx0,posy1,posx1,posy0,fill="red")
+    cadre1.create_line(posx0,posy0,posx1,posy1,fill="red")
+    cadre1.create_line(posx0,posy1,posx1,posy0,fill="red")
 
 
 def legalattack(x,y):   #teste si le joueur n'a pas deja attaqué à cet endroit
@@ -92,7 +142,10 @@ def delete_choix_de_positions(event):
             y=i
             break
     posx0,posx1,posy0,posy1=position(x,y)
-    cadre.create_rectangle(posx0,posy0,posx1,posy1,fill="white")    
+    if y<400:
+        cadre1.create_rectangle(posx0,posy0,posx1,posy1,fill="white")  
+    if y>400:
+        cadre2.create_rectangle(posx0,posy0,posx1,posy1,fill="white")  
     
 def une_position(x,y):
     placex=[]
@@ -118,8 +171,9 @@ def stockagebateau(x,y):    #peut etre utiliser la meme fonction mais 2 liste po
             l2bateau=l1[n]
             l2nouveau=case[n]
             for z in range(len(l2bateau)):
-                if l2bateau[z]==l2nouveau[z]:
-                    a=a+1
+                    if l2bateau[z]==l2nouveau[z]:
+                        a=a+1
+    print(a)
     if a==2*(len(placex)):
         return "Un bateau s'y situe déjà "
     else:
@@ -130,24 +184,22 @@ def legalité():
     pass
 
 
-class case:
-    def __init__(self, x, y):
-        self.x=x
-        self.y=y
-        
-    def __repr__(self):
-        return str(self.x) + ','+str(self.y)
-
-cases=[]
-for i in range(9):
-    cases.append([])
-    for j in range(9):
-        cases[i].append(case(i,j))
+play=tk.Button(master, text="Jouer", width="10", height="4")
+play.grid(column=0, row=0)
 
 
 master.bind("<Button-1>", choix_de_positions)
 master.bind("<Button-3>", delete_choix_de_positions)
 
 grille()
+boat_selection()
+
+"""
+def motion(event):
+    x, y = event.x, event.y
+    print('{}, {}'.format(x, y))
+
+master.bind('<Button-1>', motion)
+"""
 
 master.mainloop()
