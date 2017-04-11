@@ -31,11 +31,12 @@ class case:
         return str(self.x) + ','+str(self.y)
     
     def draw(self):
-        if self.color=="red":
-            cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") ik it's sketchy, c'est juste que idk how you update your thing
+        rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+        if self.bateau==True and self.attacked==True:
+            cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
             cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
-            break
-        cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+        
+        cadre.tag_bind(rect, "<Button-1>", self.click)
 
     def boat(self):
         if self.bateau==False:
@@ -44,7 +45,7 @@ class case:
         else:
             self.bateau=False
             self.draw()
-    def color(self):
+"""    def color(self):
         couleur="white"
         if self.bateau==True:
             couleur="grey"
@@ -52,6 +53,16 @@ class case:
                 couleur="red" #(C'est ou que tu execute la fonction?(si c'est dans draw, faut mettre un if "red" le truc et une break))
         elif self.case_attaquee==True:
             couleur="black"
+        return couleur"""
+
+    def color(self):
+        couleur="white"
+        if self.bateau==True:
+            couleur="grey"
+        if self.case_attaquee and self.bateau:
+            couleur="red"
+        elif self.case_attaquee==True and self.bateau==False:
+            couleur="blue"
         return couleur
     
     def attacked(self):
@@ -61,7 +72,10 @@ class case:
         else:
             self.case_attaquee=False
             self.draw()
-
+    
+    def click(self, event):
+        self.attacked()
+        print(self.case_attaquee and self.bateau)
 
 cases=[]
 for i in range(9):
