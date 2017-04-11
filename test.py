@@ -61,20 +61,6 @@ class case:
         else:
             self.case_attaquee=False
             self.draw()
-"""
-    def check_surrounding(self): #check s'il n'y a pas de bateau autour
-        for i in range(-1,1):
-            for j in range(-1,1):
-                if self.(x+i) and self.(x+j)==True:
-                
-                a=self.(x+i)
-                b=self.(x+j)
-                if [a][b].bateau==True:
-                
-                self.x=self.(x+i)
-                self.y==self.(x+j)
-                if self.bateau==True:
-"""                 
 
 
 cases=[]
