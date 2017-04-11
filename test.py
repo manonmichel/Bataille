@@ -76,6 +76,15 @@ class case:
     def click(self, event):
         self.attacked()
         print(self.case_attaquee and self.bateau)
+        
+    def check_surrounding(self): #check s'il n'y a pas de bateau autour
+        for i in range(-1,1):
+            for j in range(-1,1):
+                a=self.x+i
+                b=self.y+j
+                c=case(a,b)
+                if c.bateau==True:
+                    return False
 
 cases=[]
 for i in range(9):
