@@ -91,6 +91,22 @@ class case:
                     return True
             except:
                     IndexError
+                    
+def placer_boats(event):
+    n=2
+    erreurplacement="placer le bateau en une ligne"
+    erreurnb="vous ne pouvez que placer tant de bateau"
+    if n==2:
+        for i in range (2):
+        return 
+    """
+    if n==3:
+        pass
+    if n==4:
+        pass
+    if n==5:
+        pass
+    """
 
 cases=[]
 for i in range(9):
@@ -103,6 +119,7 @@ def changement(event):
     print('jello')
 
 master.bind("<Button-1>", changement)
+Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
 
 master.mainloop()
 
