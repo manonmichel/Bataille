@@ -98,21 +98,60 @@ def rancoord(): #renvoie 2 ran
     a=random.randrange(1,10,1)
     b=random.randrange(1,10,1)
     return a,b
+    
 def ai():
     a,b=rancoord()
     while cases[a][b].case_attaquee==True:
         print(cases[a][b].case_attaquee)
         a,b=rancoord()
     [a][b].attaque()
-    if bateaucoule==true:
-        ai()
+    if [a][b].bateau==True:
+        if #class bateau.bateaucoulee==True:
+            ai()
 """
 
+"""        
+class adversaire:
+    def __init__(self, x, y):
+        self.x=x
+        self.y=y
+        self.bateau=False
+        self.case_attaquee=False
+        self.xdebut=x*l
+        self.xfin=(x+1)*l
+        self.ydebut=y*h
+        self.yfin=y*h+h
+        self.draw()
+        
+    def __repr__(self):
+        return str(self.x) + ','+str(self.y)
+        
+        def draw(self):
+            rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+            if self.bateau==True and self.attacked==True:
+                cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
+                cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
+                
+        def color(self):
+            couleur="white"
+            if self.bateau==True:
+                couleur="grey"
+                if self.case_attaquee and self.bateau:
+                    couleur="red"
+                elif self.case_attaquee==True and self.bateau==False:
+                    couleur="blue"
+            return couleur        
+"""
+
+caseadversaire=[]
 cases=[]
 for i in range(9):
     cases.append([])
+    caseadversaire.append([])
     for j in range(9):
         cases[i].append(case(i,j))
+        caseadversaire[i].append(adversaire(i,j))
+
 
 def changement(event):
     cases[0][0].boat()
