@@ -77,36 +77,23 @@ class case:
         self.attacked()
         print(self.case_attaquee and self.bateau)
         
-    def check_surrounding(self): #check s'il n'y a pas de bateau autour
-        xcoordinate=[-1,0,0,+1]
-        ycoordinate=[0,+1,-1,0]
-        for i in range(4):
-            try:
-                a=(self.x+xcoordinate[i])
-                b=self.y+(ycoordinate[i])
-                c=cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])]
-                if c.bateau==True:
-                    return False
-                else:
-                    return True
-            except:
-                    IndexError
                     
-def placer_boats(event):
+"""                   
+def placer_boats(event):    #a mettre dans la classe boat
     n=2
     erreurplacement="placer le bateau en une ligne"
     erreurnb="vous ne pouvez que placer tant de bateau"
     if n==2:
         for i in range (2):
         return 
-    """
+
     if n==3:
         pass
     if n==4:
         pass
     if n==5:
         pass
-    """
+"""
 
 cases=[]
 for i in range(9):
@@ -119,6 +106,7 @@ def changement(event):
     print('jello')
 
 master.bind("<Button-1>", changement)
+
 Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
 
 master.mainloop()
