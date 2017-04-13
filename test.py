@@ -78,13 +78,19 @@ class case:
         print(self.case_attaquee and self.bateau)
         
     def check_surrounding(self): #check s'il n'y a pas de bateau autour
-        for i in range(-1,1):
-            for j in range(-1,1):
-                a=self.x+i
-                b=self.y+j
-                c=case(a,b)
+        xcoordinate=[-1,0,0,+1]
+        ycoordinate=[0,+1,-1,0]
+        for i in range(4):
+            try:
+                a=(self.x+xcoordinate[i])
+                b=self.y+(ycoordinate[i])
+                c=cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])]
                 if c.bateau==True:
                     return False
+                else:
+                    return True
+            except:
+                    IndexError
 
 cases=[]
 for i in range(9):
