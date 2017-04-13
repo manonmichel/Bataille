@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import random
 #==============================================================================
 taillejeu="500x500"
 hauteurcadre=500
@@ -93,6 +93,19 @@ def placer_boats(event):    #a mettre dans la classe boat
         pass
     if n==5:
         pass
+        
+def rancoord(): #renvoie 2 ran
+    a=random.randrange(1,10,1)
+    b=random.randrange(1,10,1)
+    return a,b
+def ai():
+    a,b=rancoord()
+    while cases[a][b].case_attaquee==True:
+        print(cases[a][b].case_attaquee)
+        a,b=rancoord()
+    [a][b].attaque()
+    if bateaucoule==true:
+        ai()
 """
 
 cases=[]
