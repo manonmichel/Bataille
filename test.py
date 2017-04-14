@@ -107,13 +107,11 @@ def attacked_all():
     return True
     
 def ai():
+    global sens
     a,b=rancoord()
-    print
-    if attacked_all == True:
-        print("ya")
-        return
+    if attacked_all()== True:
+        return False
     while cases[a][b].case_attaquee==True:
-        ai()
         print(cases[a][b].case_attaquee)
         a,b=rancoord()
     cases[a][b].attacked()
@@ -123,20 +121,23 @@ def ai():
     c=[0,0,-1,+1]
     d=[1,-1,0,0]
     try:
-        for i in range(4):
-            print("lal")            
+        for i in range(4):    
             if cases[a+c[i]][b+d[i]].case_attaquee==False:
+                global sens="vertical"
                 cases[a+c[i]][b+d[i]].attacked()
                 break
                 
             elif cases[a-1][b].case_attaquee==False:
+                global sens="vertical"
                 cases[a-1][b].attacked()
                 break
             elif cases[a][b+1].case_attaquee==False:
+                global sens="horizontal"
                 cases[a][b+1].attacked()
                 break
             else:
                 cases[a][b-1].attacked()
+                global sens="horizontal"
                 break
     except IndexError:
         pass
