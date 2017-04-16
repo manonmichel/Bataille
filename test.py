@@ -182,6 +182,7 @@ def changement(event):
 master.bind("<Button-1>", changement)
 
 Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
+ai = tk.Button(master, text = 'ai', command = ai.aiattack).grid(row=2, column=2)
 
 master.mainloop()
 
