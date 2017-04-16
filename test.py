@@ -99,48 +99,69 @@ def rancoord(): #renvoie 2 ran
     b=random.randrange(1,9,1)
     return a,b
   
-def attacked_all():
+def attacked_all(liste):
     for i in range(9):
         for j in range(9):
-            if cases[i][j].case_attaque==False:
+            if liste[i][j].case_attaquee==False:
                 return False
     return True
     
-def ai():
-    global sens
-    a,b=rancoord()
-    if attacked_all()== True:
-        return False
-    while cases[a][b].case_attaquee==True:
-        print(cases[a][b].case_attaquee)
+    
+class ai:
+    def __init__(self, x, y):
+        self.x=x
+        self.y=y
+        self.bateau=False
+        self.case_attaquee=False
+        self.xdebut=x*l
+        self.xfin=(x+1)*l
+        self.ydebut=y*h
+        self.yfin=y*h+h
+       # self.draw()
+        
+    def __repr__(self):
+        return str(self.x) + ','+str(self.y)
+        
+        
+    def aiattack():
+        global sens
         a,b=rancoord()
-    cases[a][b].attacked()
-    #while [a][b].bateau==True:
-    #  if class bateau.bateaucoulee==True:
-    #   ai()
-    c=[0,0,-1,+1]
-    d=[1,-1,0,0]
-    try:
-        for i in range(4):    
-            if cases[a+c[i]][b+d[i]].case_attaquee==False:
-                global sens="vertical"
-                cases[a+c[i]][b+d[i]].attacked()
-                break
-                
-            elif cases[a-1][b].case_attaquee==False:
-                global sens="vertical"
-                cases[a-1][b].attacked()
-                break
-            elif cases[a][b+1].case_attaquee==False:
-                global sens="horizontal"
-                cases[a][b+1].attacked()
-                break
-            else:
-                cases[a][b-1].attacked()
-                global sens="horizontal"
-                break
-    except IndexError:
-        pass
+        if attacked_all(cases)== True:
+            return False
+        while cases[a][b].case_attaquee==True:
+            print(cases[a][b].case_attaquee)
+            a,b=rancoord()
+        cases[a][b].attacked()
+        #while [a][b].bateau==True:
+        #  if class bateau.bateaucoulee==True:
+        #   ai()
+        
+        c=[0,0,-1,+1]
+        d=[1,-1,0,0]
+        try:
+            for i in range(4):    
+                if cases[a+c[i]][b+d[i]].case_attaquee==False:
+                    sens="vertical"
+                    cases[a+c[i]][b+d[i]].attacked()
+                    break
+                    
+                elif cases[a-1][b].case_attaquee==False:
+                    sens="vertical"
+                    cases[a-1][b].attacked()
+                    break
+                elif cases[a][b+1].case_attaquee==False:
+                    sens="horizontal"
+                    cases[a][b+1].attacked()
+                    break
+                elif cases[a][b-1].case_attaquee==False:
+                    cases[a][b-1].attacked()
+                    sens="horizontal"
+                    break
+                else:
+                    while cases[a][b].case_attaquee==True:
+                        a,b=rancoord()                
+        except IndexError:
+            pass
 """
 
 
