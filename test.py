@@ -46,15 +46,7 @@ class case:
         else:
             self.bateau=False
             self.draw()
-"""    def color(self):
-        couleur="white"
-        if self.bateau==True:
-            couleur="grey"
-            if self.case_attaquee==True:
-                couleur="red" #(C'est ou que tu execute la fonction?(si c'est dans draw, faut mettre un if "red" le truc et une break))
-        elif self.case_attaquee==True:
-            couleur="black"
-        return couleur"""
+            
 
     def color(self):
         couleur="white"
@@ -76,7 +68,20 @@ class case:
     
     def click(self, event):
         self.boat()
-        print(self.case_attaquee and self.bateau)
+        print(self.case_attaquee and self.bateau)   
+         
+"""    def color(self):
+        couleur="white"
+        if self.bateau==True:
+            couleur="grey"
+            if self.case_attaquee==True:
+                couleur="red" #(C'est ou que tu execute la fonction?(si c'est dans draw, faut mettre un if "red" le truc et une break))
+        elif self.case_attaquee==True:
+            couleur="black"
+        return couleur
+        
+ """
+
         
                     
 """                   
@@ -87,14 +92,13 @@ def placer_boats(event):    #a mettre dans la classe boat
     if n==2:
         for i in range (2):
         return 
-
     if n==3:
         pass
     if n==4:
         pass
     if n==5:
         pass
-        
+"""        
 def rancoord(): #renvoie 2 ran
     a=random.randrange(1,9,1)
     b=random.randrange(1,9,1)
@@ -106,7 +110,7 @@ def attacked_all(liste):
             if liste[i][j].case_attaquee==False:
                 return False
     return True
-"""    
+  
     
 class ai:
     def __init__(self, x, y):
@@ -132,7 +136,7 @@ class ai:
         cadre.tag_bind(rect, "<Button-1>", self.click)
         
     def click(self, event):
-        case.attacked()
+        case.attacked(self)
         print(self.case_attaquee and self.bateau)
         
     def color(self):
@@ -195,15 +199,13 @@ for i in range(9):
         caseadversaire[i].append(ai(i,j))
 
 
-def changement(event):
-    cases[0][0].boat()
-    print('jello')
+#def changement(event):
+ #   cases[0][0].boat()
+   # print('jello')
 
-master.bind("<Button-1>", changement)
+#master.bind("<Button-1>", changement)
 
-Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
-ai = tk.Button(master, text = 'ai', command = ai.aiattack).grid(row=2, column=2)
+#Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
+ai = tk.Button(master, text = 'ai', command = ai.aiattack).grid(row=0, column=2)
 
 master.mainloop()
-
-
