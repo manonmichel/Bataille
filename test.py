@@ -1,9 +1,9 @@
 import tkinter as tk
 import random
 #==============================================================================
-taillejeu="500x500"
-hauteurcadre=500
-largeurcadre=500
+taillejeu="1080x1080"
+hauteurcadre=800
+largeurcadre=400
 l=largeurcadre/10
 h=hauteurcadre/10
 #==============================================================================
@@ -12,8 +12,9 @@ master = tk.Tk()
 master.title("Bataille Navale")
 master.geometry(taillejeu)
 tk.Frame(master).grid()
-cadre=tk.Canvas(master, width=hauteurcadre, height=largeurcadre,bg="white")
+cadre=tk.Canvas(master, width=largeurcadre, height=hauteurcadre,bg="white")
 cadre.grid(column=0, row=0)
+
 
 
 class case:
@@ -21,11 +22,11 @@ class case:
         self.x=x
         self.y=y
         self.bateau=False
-        self.case_attaquee=False
+        self.case_attaquee=False        
         self.xdebut=x*l
         self.xfin=(x+1)*l
-        self.ydebut=y*h
-        self.yfin=y*h+h
+        self.ydebut=y*(h/2)+hauteurcadre/2
+        self.yfin=y*(h/2)+(h/2)+hauteurcadre/2
         self.draw()
     def __repr__(self):
         return str(self.x) + ','+str(self.y)
@@ -74,7 +75,7 @@ class case:
             self.draw()
     
     def click(self, event):
-        self.attacked()
+        self.boat()
         print(self.case_attaquee and self.bateau)
         
                     
@@ -105,7 +106,7 @@ def attacked_all(liste):
             if liste[i][j].case_attaquee==False:
                 return False
     return True
-    
+"""    
     
 class ai:
     def __init__(self, x, y):
@@ -115,18 +116,39 @@ class ai:
         self.case_attaquee=False
         self.xdebut=x*l
         self.xfin=(x+1)*l
-        self.ydebut=y*h
-        self.yfin=y*h+h
-       # self.draw()
+        self.ydebut=y*(h/2)
+        self.yfin=y*(h/2)+(h/2)
+        self.draw()
         
     def __repr__(self):
         return str(self.x) + ','+str(self.y)
         
+    def draw(self):
+        rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+        if self.bateau==True and self.attacked==True:
+            cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
+            cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
+            
+        cadre.tag_bind(rect, "<Button-1>", self.click)
         
+    def click(self, event):
+        case.attacked()
+        print(self.case_attaquee and self.bateau)
+        
+    def color(self):
+        couleur="white"
+        if self.bateau==True:
+            couleur="grey"
+        if self.case_attaquee and self.bateau:
+            couleur="red"
+        elif self.case_attaquee==True and self.bateau==False:
+            couleur="blue"
+        return couleur
+            
     def aiattack():
         global sens
         a,b=rancoord()
-        if attacked_all(cases)== True:
+        if attacked_all()== True:
             return False
         while cases[a][b].case_attaquee==True:
             print(cases[a][b].case_attaquee)
@@ -162,9 +184,7 @@ class ai:
                         a,b=rancoord()                
         except IndexError:
             pass
-"""
-
-
+            
 caseadversaire=[]
 cases=[]
 for i in range(9):
@@ -172,7 +192,7 @@ for i in range(9):
     caseadversaire.append([])
     for j in range(9):
         cases[i].append(case(i,j))
-        caseadversaire[i].append(adversaire(i,j))
+        caseadversaire[i].append(ai(i,j))
 
 
 def changement(event):
