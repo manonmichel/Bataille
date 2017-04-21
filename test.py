@@ -149,7 +149,7 @@ class ai:
                 a,b=rancoord()
                 while cases[a][b].case_attaquee==True:
                     a,b=rancoord()
-                    cases[a][b].attacked()
+                cases[a][b].attacked()
             
             
                 #while [a][b].bateau==True:
