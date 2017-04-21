@@ -32,8 +32,9 @@ class case:
         return str(self.x) + ','+str(self.y)
     
     def draw(self):
-        rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
-        if self.bateau==True and self.attacked==True:
+        if self.color!="red":
+            rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+        else:
             cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
             cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
         
@@ -100,8 +101,8 @@ def placer_boats(event):    #a mettre dans la classe boat
         pass
 """        
 def rancoord(): #renvoie 2 ran
-    a=random.randrange(1,9,1)
-    b=random.randrange(1,9,1)
+    a=random.randrange(0,9,1)
+    b=random.randrange(0,9,1)
     return a,b
   
 def attacked_all(liste):
@@ -128,8 +129,9 @@ class ai:
         return str(self.x) + ','+str(self.y)
         
     def draw(self):
-        rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
-        if self.bateau==True and self.attacked==True:
+        if self.color!="red":
+            rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+        else:
             cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
             cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
             
@@ -137,7 +139,6 @@ class ai:
         
     def click(self, event):
         case.attacked(self)
-        print(self.case_attaquee and self.bateau)
         
     def color(self):
         couleur="white"
