@@ -16,7 +16,6 @@ cadre=tk.Canvas(master, width=largeurcadre, height=hauteurcadre,bg="white")
 cadre.grid(column=0, row=0)
 
 
-
 class case:
     def __init__(self, x, y):
         self.x=x
@@ -32,9 +31,8 @@ class case:
         return str(self.x) + ','+str(self.y)
     
     def draw(self):
-        if self.color!="red":
-            rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
-        else:
+        rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+        if self.bateau==True and self.attacked==True:
             cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
             cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
         
@@ -47,7 +45,7 @@ class case:
         else:
             self.bateau=False
             self.draw()
-            
+
 
     def color(self):
         couleur="white"
@@ -69,50 +67,37 @@ class case:
     
     def click(self, event):
         self.boat()
-        print(self.case_attaquee and self.bateau)   
-         
-"""    def color(self):
-        couleur="white"
-        if self.bateau==True:
-            couleur="grey"
-            if self.case_attaquee==True:
-                couleur="red" #(C'est ou que tu execute la fonction?(si c'est dans draw, faut mettre un if "red" le truc et une break))
-        elif self.case_attaquee==True:
-            couleur="black"
-        return couleur
+        print(self.case_attaquee and self.bateau)
         
- """
-
-        
-                    
-"""                   
+"""
 def placer_boats(event):    #a mettre dans la classe boat
     n=2
     erreurplacement="placer le bateau en une ligne"
     erreurnb="vous ne pouvez que placer tant de bateau"
     if n==2:
         for i in range (2):
-        return 
+            return 
+
     if n==3:
         pass
     if n==4:
         pass
     if n==5:
         pass
-"""        
+"""
+   
 def rancoord(): #renvoie 2 ran
     a=random.randrange(0,9,1)
     b=random.randrange(0,9,1)
     return a,b
   
-def attacked_all(liste):
+def attacked_all():
     for i in range(9):
         for j in range(9):
-            if liste[i][j].case_attaquee==False:
+            if cases[i][j].case_attaquee==False:
                 return False
     return True
-  
-    
+
 class ai:
     def __init__(self, x, y):
         self.x=x
@@ -129,9 +114,8 @@ class ai:
         return str(self.x) + ','+str(self.y)
         
     def draw(self):
-        if self.color!="red":
-            rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
-        else:
+        rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+        if self.bateau==True and self.attacked==True:
             cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
             cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
             
@@ -139,6 +123,7 @@ class ai:
         
     def click(self, event):
         case.attacked(self)
+        print(self.case_attaquee and self.bateau)
         
     def color(self):
         couleur="white"
@@ -189,7 +174,9 @@ class ai:
                         a,b=rancoord()                
         except IndexError:
             pass
-            
+
+
+
 caseadversaire=[]
 cases=[]
 for i in range(9):
@@ -198,15 +185,19 @@ for i in range(9):
     for j in range(9):
         cases[i].append(case(i,j))
         caseadversaire[i].append(ai(i,j))
+      
 
+    
 
-#def changement(event):
- #   cases[0][0].boat()
-   # print('jello')
-
-#master.bind("<Button-1>", changement)
-
+"""
+def changement(event):
+    cases[0][0].boat()
+    print('jello')
+master.bind("<Button-1>", changement)
+"""
 #Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
-ai = tk.Button(master, text = 'ai', command = ai.aiattack).grid(row=0, column=2)
+ai = tk.Button(master, text = 'ai', command = ai.aiattack).grid(row=0, column=1)
 
 master.mainloop()
+
+
