@@ -6,6 +6,7 @@ hauteurcadre=800
 largeurcadre=400
 l=largeurcadre/10
 h=hauteurcadre/10
+sens="none"
 #==============================================================================
 
 master = tk.Tk()
@@ -137,43 +138,41 @@ class ai:
             
     def aiattack():
         global sens
-        a,b=rancoord()
         if attacked_all()== True:
             return False
-        while cases[a][b].case_attaquee==True:
-            print(cases[a][b].case_attaquee)
-            a,b=rancoord()
-        cases[a][b].attacked()
-        #while [a][b].bateau==True:
-        #  if class bateau.bateaucoulee==True:
-        #   ai()
+        try:    
+            if sens=="vertical":
+                pass
+            if sens=="horizontal":
+                pass
+            else:   
+                a,b=rancoord()
+                while cases[a][b].case_attaquee==True:
+                    a,b=rancoord()
+                    cases[a][b].attacked()
+            
+            
+                #while [a][b].bateau==True:
+                #  if class bateau.bateaucoulee==True:
+                #   ai()
         
-        c=[0,0,-1,+1]
-        d=[1,-1,0,0]
-        try:
-            for i in range(4):    
-                if cases[a+c[i]][b+d[i]].case_attaquee==False:
-                    sens="vertical"
-                    cases[a+c[i]][b+d[i]].attacked()
-                    break
-                    
-                elif cases[a-1][b].case_attaquee==False:
-                    sens="vertical"
-                    cases[a-1][b].attacked()
-                    break
-                elif cases[a][b+1].case_attaquee==False:
-                    sens="horizontal"
-                    cases[a][b+1].attacked()
-                    break
-                elif cases[a][b-1].case_attaquee==False:
-                    cases[a][b-1].attacked()
-                    sens="horizontal"
-                    break
-                else:
-                    while cases[a][b].case_attaquee==True:
-                        a,b=rancoord()                
+                c=[-1,+1]
+                d=[0,0]
+
+                for i in range(2):    
+                    if cases[a+c[i]][b+d[i]].case_attaquee==False:
+                        cases[a+c[i]][b+d[i]].attacked()
+                        if cases[a+c[i]][b+d[i]].bateau==True:
+                            sens="horizontal"
+                            break
+                    if cases[a+d[i]][b+c[i]].case_attaquee==False:
+                        cases[a+d[i]][b+c[i]].attacked()
+                        if cases[a+d[i]][b+c[i]].bateau==True:
+                            sens="vertical"
+                            break
         except IndexError:
-            pass
+            pass       
+        
 
 
 
