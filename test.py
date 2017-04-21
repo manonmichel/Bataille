@@ -192,13 +192,13 @@ boatframe=tk.Canvas(master, width=450, height=300)
 boatframe.grid(column=1,row=0, sticky="N")
 
 def boat_selection():
-    l=largeurcadre/11
-    #h=hauteurcadre/11
+    l=largeurcadre/10
+    h=hauteurcadre/10
     
-    b5_coord = (l+300),40, (l+300),80, (l+50),80, (l+50),40
-    b4_coord = (l+270),110, (l+270),150, (l+80),150, (l+80),110
-    b3_coord = (l+240),180, (l+240),220, (l+110),220, (l+110),180
-    b2_coord = (l+210),250, (l+210),290, (l+140),290, (l+140),250
+    b5_coord = (l+300),(h-40), (l+300),h, (l+50),h, (l+50),(h-40)
+    b4_coord = (l+270),(h+30), (l+270),(h+70), (l+80),(h+70), (l+80),(h+30)
+    b3_coord = (l+240),(h+100), (l+240),(h+140), (l+110),(h+140), (l+110),(h+100)
+    b2_coord = (l+210),(h+170), (l+210),(h+210), (l+140),(h+210), (l+140),(h+170)
     
     """
     for i in range (2,5): 
