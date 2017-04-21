@@ -145,6 +145,8 @@ class ai:
                 pass
             if sens=="horizontal":
                 pass
+            if sens=="unknown":
+                pass
             else:   
                 a,b=rancoord()
                 while cases[a][b].case_attaquee==True:
@@ -155,25 +157,29 @@ class ai:
                 #while [a][b].bateau==True:
                 #  if class bateau.bateaucoulee==True:
                 #   ai()
-        
-                c=[-1,+1]
-                d=[0,0]
-
-                for i in range(2):    
-                    if cases[a+c[i]][b+d[i]].case_attaquee==False:
-                        cases[a+c[i]][b+d[i]].attacked()
-                        if cases[a+c[i]][b+d[i]].bateau==True:
-                            sens="horizontal"
-                        break
-                    if cases[a+d[i]][b+c[i]].case_attaquee==False:
-                        cases[a+d[i]][b+c[i]].attacked()
-                        if cases[a+d[i]][b+c[i]].bateau==True:
-                            sens="vertical"
-                        break
+                if cases[a][b].bateau==True:
+                    c=[-1,1]
+                    d=[0,0]
+                    for i in range(2):    
+                        if cases[a+c[i]][b+d[i]].case_attaquee==False:
+                            cases[a+c[i]][b+d[i]].attacked()
+                            if cases[a+c[i]][b+d[i]].bateau==True:
+                                print("horiz")
+                                sens="horizontal"
+                            else:
+                                sens="unknown"
+                            break
+                        if cases[a+d[i]][b+c[i]].case_attaquee==False:
+                            cases[a+d[i]][b+c[i]].attacked()
+                            if cases[a+d[i]][b+c[i]].bateau==True:
+                                print("vertic")
+                                sens="vertical"
+                            else:
+                                sens="unknown"
+                            
+                            break
         except IndexError:
-            pass       
-        
-
+            pass      
 
 
 caseadversaire=[]
