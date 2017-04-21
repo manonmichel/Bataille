@@ -164,12 +164,12 @@ class ai:
                         cases[a+c[i]][b+d[i]].attacked()
                         if cases[a+c[i]][b+d[i]].bateau==True:
                             sens="horizontal"
-                            break
+                        break
                     if cases[a+d[i]][b+c[i]].case_attaquee==False:
                         cases[a+d[i]][b+c[i]].attacked()
                         if cases[a+d[i]][b+c[i]].bateau==True:
                             sens="vertical"
-                            break
+                        break
         except IndexError:
             pass       
         
