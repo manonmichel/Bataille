@@ -187,7 +187,53 @@ for i in range(9):
       
 
     
+#================== Selectable boats ================================
+boatframe=tk.Canvas(master, width=450, height=300)
+boatframe.grid(column=1,row=0, sticky="N")
 
+def boat_selection():
+    l=largeurcadre/10
+    h=hauteurcadre/10
+    
+    b5_coord = (l+300),(h-40), (l+300),h, (l+50),h, (l+50),(h-40)
+    b4_coord = (l+270),(h+30), (l+270),(h+70), (l+80),(h+70), (l+80),(h+30)
+    b3_coord = (l+240),(h+100), (l+240),(h+140), (l+110),(h+140), (l+110),(h+100)
+    b2_coord = (l+210),(h+170), (l+210),(h+210), (l+140),(h+210), (l+140),(h+170)
+    
+    """
+    for i in range (2,5): 
+        bi=boatframe.create_polygon(bi_coord, fill="blue")
+        def clicked_bi(event):
+            print("Boat i selected")
+            boatframe.create_polygon(bi_coord, fill="grey")
+        boatframe.tag_bind(bi,"<Button-1>",clicked_bi)
+    """
+    
+    b5=boatframe.create_polygon(b5_coord, fill="blue")
+    b4=boatframe.create_polygon(b4_coord, fill="blue")
+    b3=boatframe.create_polygon(b3_coord, fill="blue")
+    b2=boatframe.create_polygon(b2_coord, fill="blue")
+    
+    def clicked_b5(event):
+        print("Boat 5 selected")
+        boatframe.create_polygon(b5_coord, fill="grey")
+    def clicked_b4(event):
+        print("Boat 4 selected")
+        boatframe.create_polygon(b4_coord, fill="grey")
+    def clicked_b3(event):
+        print("Boat 3 selected")
+        boatframe.create_polygon(b3_coord, fill="grey")
+    def clicked_b2(event):
+        print("Boat 2 selected")
+        boatframe.create_polygon(b2_coord, fill="grey")
+        
+    boatframe.tag_bind(b5,"<Button-1>",clicked_b5)
+    boatframe.tag_bind(b4,"<Button-1>",clicked_b4)
+    boatframe.tag_bind(b3,"<Button-1>",clicked_b3)
+    boatframe.tag_bind(b2,"<Button-1>",clicked_b2)    
+
+boat_selection()
+#====================================================================
 """
 def changement(event):
     cases[0][0].boat()
