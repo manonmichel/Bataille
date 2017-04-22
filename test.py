@@ -1,3 +1,4 @@
+
 import tkinter as tk
 import random
 #==============================================================================
@@ -28,7 +29,12 @@ def create():
 creation=False
 orientation='N'#ffaudra voir si on le fait rester à ce que cest ou si on le fait revenir a N
 
+game_mode=False
 
+def gamemode():        #Seperates the moment of boat placement from the game play
+    global game_mode
+    game_mode=True
+    
 
 class case:
     def __init__(self, x, y):
@@ -84,7 +90,7 @@ class case:
         global orientation
         if creation==True:
             if self.check_surrounding()==False:
-                print('bite')
+                print('Boats can not be adjacent.')
             else:
                 global ships
                 ships.append(ship(3,orientation))
@@ -92,7 +98,7 @@ class case:
                 bateau_selectionne.placement(self.x, self.y)
         else:   
             self.attacked()
-            print(self.case_attaquee and self.bateau
+            print(self.case_attaquee and self.bateau)
                   
     def check_self(self):
         if self.bateau==True:
@@ -106,8 +112,9 @@ class case:
         ycoordinate=[0,+1,-1,0]
         for i in range(4):
             try:
-                print(cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])])
-                if (cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])]).bateau==True:
+                adjacent_case=cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])]
+                print(adjacent_case)
+                if adjacent_case.bateau==True:
                     return False
             except:
                     IndexError
@@ -130,11 +137,11 @@ class ship:
         
     def placement(self,x,y):
         for i in range(self.length):
-            if self.orientation=='N':
+            if self.orientation=='N':  #vérifie que le bateau rentre dans le cadre
                 if y+self.length>9:
                     return 'Erreur'
                 else:
-                    cases[x][y+i].boat()
+                    cases[x][y+i].boat()  # what if one of the cases is already a boat
                     self.cases(x,y+i)
             elif self.orientation=='E':
                 if x-self.length<-1:
@@ -184,7 +191,6 @@ def placer_boats(event):    #a mettre dans la classe boat
     if n==2:
         for i in range (2):
             return 
-
     if n==3:
         pass
     if n==4:
@@ -375,6 +381,7 @@ master.bind("<Button-1>", changement)
 """
 #Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
 ai = tk.Button(master, text = 'ai', command = ai.aiattack).grid(row=0, column=1)
+play=tk.Button(master, text="Jouer", width="10", height="2", command=gamemode).grid(column=2, row=0)
 
 master.mainloop()
 
