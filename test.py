@@ -152,8 +152,11 @@ class case:
                     global ships
                     ships.append(ship(bl,orientation))
                     bateau_selectionne=ships[len(ships)-1]
-                    bateau_selectionne.placement(self.x, self.y)
-                    selectable=True
+                    if bateau_selectionne.check_placement(self.x, self.y)==False:
+                        print('Boat out of area.')
+                    else:
+                        bateau_selectionne.placement(self.x, self.y)
+                        selectable=True
             else:   
                 self.attacked()
                 print(self.case_attaquee and self.bateau)
@@ -194,33 +197,35 @@ class ship:
     
     def __repr__(self):
         return str(self.length)
+    
+    def check_placement(self, x, y):
+        if self.orientation=='S':  #vérifie que le bateau rentre dans le cadre
+            if y+self.length>9:
+                return False
+        elif self.orientation=='E':
+            if x-self.length<-1:
+                return False
+        elif self.orientation=='N':
+            if y-self.length<-1:
+                return False
+        elif self.orientation=='W':
+                if x+self.length>9:
+                    return False
         
     def placement(self,x,y):
         for i in range(self.length):
             if self.orientation=='S':  #vérifie que le bateau rentre dans le cadre
-                if y+self.length>9:
-                    return 'Erreur'
-                else:
-                    cases[x][y+i].boat()  # what if one of the cases is already a boat
-                    self.cases(x,y+i)
+                cases[x][y+i].boat()  # what if one of the cases is already a boat
+                self.cases(x,y+i)
             elif self.orientation=='E':
-                if x-self.length<-1:
-                    return 'Erreur'
-                else:
-                    cases[x-i][y].boat()
-                    self.cases(x,y+i)
+                cases[x-i][y].boat()
+                self.cases(x-i,y)
             elif self.orientation=='N':
-                if y-self.length<-1:
-                    return 'Erreur'
-                else:
-                    cases[x][y-i].boat()
-                    self.cases(x,y+i)
+                cases[x][y-i].boat()
+                self.cases(x,y-i)
             elif self.orientation=='W':
-                if x+self.length>9:
-                    return 'Erreur'
-                else:
-                    cases[x+i][y].boat()
-                    self.cases(x,y+i)
+                cases[x+i][y].boat()
+                self.cases(x+i,y)
                     
     def cases(self,x,y):
         self.endroits.append(cases[x][y])
