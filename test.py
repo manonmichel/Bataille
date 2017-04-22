@@ -470,20 +470,51 @@ def boat_selection():
     def clicked_b5(event):
         print("Boat 5 selected")
         boatframe.create_polygon(b5_coord, fill="grey")
+        rotate_north(event)
     def clicked_b4(event):
         print("Boat 4 selected")
         boatframe.create_polygon(b4_coord, fill="grey")
+        rotate_north(event)
     def clicked_b3(event):
         print("Boat 3 selected")
         boatframe.create_polygon(b3_coord, fill="grey")
+        rotate_north(event)
     def clicked_b2(event):
         print("Boat 2 selected")
         boatframe.create_polygon(b2_coord, fill="grey")
-        
+        rotate_north(event)
+    
+    def rotate_north(event): #Default orientation
+        global orientation
+        cadre.configure(cursor='sb_up_arrow')
+        boatframe.configure(cursor='sb_up_arrow')
+        orientation='N'
+    def rotate_east(event):
+        global orientation
+        cadre.configure(cursor='sb_left_arrow')
+        boatframe.configure(cursor='sb_left_arrow')
+        orientation='E'
+    def rotate_south(event):
+        global orientation
+        cadre.configure(cursor='sb_down_arrow')
+        boatframe.configure(cursor='sb_down_arrow')
+        orientation='S'
+    def rotate_west(event):
+        global orientation
+        cadre.configure(cursor='sb_right_arrow')
+        boatframe.configure(cursor='sb_right_arrow')
+        orientation='W'
+
+    
     boatframe.tag_bind(b5,"<Button-1>",clicked_b5)
     boatframe.tag_bind(b4,"<Button-1>",clicked_b4)
     boatframe.tag_bind(b3,"<Button-1>",clicked_b3)
-    boatframe.tag_bind(b2,"<Button-1>",clicked_b2)    
+    boatframe.tag_bind(b2,"<Button-1>",clicked_b2)
+
+    master.bind('<Left>', rotate_east)
+    master.bind('<Up>', rotate_north)
+    master.bind('<Down>', rotate_south)
+    master.bind('<Right>', rotate_west)
 
 boat_selection()
 #====================================================================
