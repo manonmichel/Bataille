@@ -318,12 +318,12 @@ class ai:
             
     def aiattack():
         global sens
+        global direction
         print(sens)
         if attacked_all()== True:
             return False
         try:    
             if sens=="vertical":
-                pass
             
                 essai=False
                 liste1=[1,2,3,4,-1,-2,-3,-4]
@@ -336,8 +336,8 @@ class ai:
                             essai=True
                         else:
                             try:
-                                if direction=="gauche":
-                                    for j in range(4,7):
+                                if direction=="bas":
+                                    for j in range(4,8):
                                         if cases[casebatx][casebaty+liste1[j]].case_attaquee==False:
                                             cases[casebatx][casebaty+liste1[j]].attacked
                                             essai=True
@@ -347,12 +347,43 @@ class ai:
                                         cases[casebatx][casebaty+liste1[i]].attacked
                                         essai=True
                                         if cases[casebatx][casebaty+liste1[i]].bateau==False:
+                                            direction="bas"
+                                           
+                            except IndexError:
+                                pass
+            
+            if sens=="horizontal":
+                print(direction)
+                essai=False
+                liste1=[1,2,3,4,-1,-2,-3,-4]
+                while essai==False:
+                    for i in range(len(liste1)):
+                  #      if bateau[casebatx][casebaty].coulee==True:
+                   #         sens="none"
+                    #        direction="none"
+                     #       ai()
+                     #      essai=True
+                        ya=0
+                        if ya==1:
+                            pass
+                        else:
+                            try:
+                                if direction=="gauche":
+                                    for j in range(4,7):
+                                        if cases[casebatx+liste1[j]][casebaty].case_attaquee==False:
+                                            cases[casebatx+liste1[j]][casebaty+liste1[j]].attacked
+                                            essai=True
+                                    pass
+                                else:
+                                    if cases[casebatx+liste1[i]][casebaty].case_attaquee==False:
+                                        cases[casebatx+liste1[i]][casebaty].attacked
+                                        essai=True
+                                        if cases[casebatx+liste1[i]][casebaty].bateau==False:
                                             direction="gauche"
                                            
                             except IndexError:
                                 pass
-            if sens=="horizontal":
-                pass
+                            
             if sens=="unknown":
                 try:
                     essai=False
@@ -450,12 +481,14 @@ class ai:
                                     sens="vertical"
                                 else:
                                     sens="unknown"
+                                    
+                    global casebatx
+                    global casebaty
                     casebatx=a
                     casebaty=b
                         
         except IndexError:
             pass    
-        
 
 
 
