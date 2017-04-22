@@ -264,15 +264,15 @@ def placer_boats(event):    #a mettre dans la classe boat
         pass
 """
    
-def rancoord(): #renvoie 2 ran
+def rancoord(): #renvoie 2 chiffres random
     a=random.randrange(0,9,1)
     b=random.randrange(0,9,1)
     return a,b
                   
-def ranai():
+def ranai():    #renvoie un chiffre random entre 1 et 4
     return random.randrange(1,4,1)
                   
-def attacked_all():
+def attacked_all(): #check si toutes les cases ont été attaqué
     for i in range(9):
         for j in range(9):
             if cases[i][j].case_attaquee==False:
@@ -316,7 +316,7 @@ class ai:
             couleur="blue"
         return couleur
             
-    def aiattack():
+    def aiattack(): #genere une attaque automatique
         global sens
         global direction
         print(sens)
