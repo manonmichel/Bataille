@@ -17,18 +17,7 @@ tk.Frame(master).grid()
 cadre=tk.Canvas(master, width=largeurcadre, height=hauteurcadre,bg="white")
 cadre.grid(column=0, row=0)
 
-def create():
-    
-    global creation
-    
-    if creation==True:
-        creation=False
-    else:
-        creation=True
-
-creation=False
 orientation='N'#ffaudra voir si on le fait rester à ce que cest ou si on le fait revenir a N
-
 game_mode=False
 
 def gamemode():        #Seperates the moment of boat placement from the game play
@@ -139,9 +128,9 @@ class case:
             self.draw()
     
     def click(self, event):
-        global creation
+        global game_mode
         global orientation
-        if creation==True:
+        if game_mode==False:
             if self.check_surrounding()==False:
                 print('Boats can not be adjacent.')
             else:
