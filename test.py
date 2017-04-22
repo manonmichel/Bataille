@@ -263,36 +263,49 @@ class ai:
                 pass
             if sens=="unknown":
                 try:
-                    random=ranai()
-                    if random==1:
-                        if cases[casebatx+1][casebaty].case_attaquee==False:
-                            cases[casebatx+1][casebaty].attacked()
-                            if cases[casebatx+1][casebaty].bateau==True:
-                                sens="horizontal"
-                            else:
-                                sens="unknown"
+                    essai=False
+                    while essai==False:
+                        if cases[casebatx+1][casebaty].case_attaquee==True and cases[casebatx-1][casebaty].case_attaquee==True and cases[casebatx][casebaty+1].case_attaquee==True and cases[casebatx][casebaty-1].case_attaquee==True:
+                            essai=True
+                            a,b=rancoord()
+                            while cases[a][b].case_attaquee==True:
+                                a,b=rancoord()
+                                cases[a][b].attacked()
+                                sens="none"
+                        random=ranai()
+                        if random==1:
+                            if cases[casebatx+1][casebaty].case_attaquee==False:
+                                cases[casebatx+1][casebaty].attacked()
+                                essai=True
+                                if cases[casebatx+1][casebaty].bateau==True:
+                                    sens="horizontal"
+                                else:
+                                    sens="unknown"
                                 
-                    if random==2:
-                        if cases[casebatx-1][casebaty].case_attaquee==False:
-                            cases[casebatx-1][casebaty].attacked()
-                            if cases[casebatx-1][casebaty].bateau==True:
-                                sens="horizontal"
-                            else:
-                                sens="unknown"
-                    if random==3:
-                        if cases[casebatx][casebaty+1].case_attaquee==False:
-                            cases[casebatx][casebaty+1].attacked()
-                            if cases[casebatx][casebaty+1].bateau==True:
-                                sens="vertical"
-                            else:
-                                sens="unknown"
-                    if random==4:
-                        if cases[casebatx][casebaty-1].case_attaquee==False:
-                            cases[casebatx][casebaty-1].attacked()
-                            if cases[casebatx][casebaty-1].bateau==True:
-                                sens="vertical"
-                            else:
-                                sens="unknown"
+                        if random==2:
+                            if cases[casebatx-1][casebaty].case_attaquee==False:
+                                cases[casebatx-1][casebaty].attacked()
+                                essai=True
+                                if cases[casebatx-1][casebaty].bateau==True:
+                                    sens="horizontal"
+                                else:
+                                    sens="unknown"
+                        if random==3:
+                            if cases[casebatx][casebaty+1].case_attaquee==False:
+                                cases[casebatx][casebaty+1].attacked()
+                                essai=True
+                                if cases[casebatx][casebaty+1].bateau==True:
+                                    sens="vertical"
+                                else:
+                                    sens="unknown"
+                        if random==4:
+                            if cases[casebatx][casebaty-1].case_attaquee==False:
+                                cases[casebatx][casebaty-1].attacked()
+                                essai==True
+                                if cases[casebatx][casebaty-1].bateau==True:
+                                    sens="vertical"
+                                else:
+                                    sens="unknown"
                 except IndexError: 
                     pass
             else:   
@@ -355,7 +368,7 @@ class ai:
                     casebaty=b
                         
         except IndexError:
-            pass       
+            pass    
 
         
 
