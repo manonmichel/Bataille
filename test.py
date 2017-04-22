@@ -262,8 +262,39 @@ class ai:
             if sens=="horizontal":
                 pass
             if sens=="unknown":
-                pass
-            
+                try:
+                    random=ranai()
+                    if random==1:
+                        if cases[casebatx+1][casebaty].case_attaquee==False:
+                            cases[casebatx+1][casebaty].attacked()
+                            if cases[casebatx+1][casebaty].bateau==True:
+                                sens="horizontal"
+                            else:
+                                sens="unknown"
+                                
+                    if random==2:
+                        if cases[casebatx-1][casebaty].case_attaquee==False:
+                            cases[casebatx-1][casebaty].attacked()
+                            if cases[casebatx-1][casebaty].bateau==True:
+                                sens="horizontal"
+                            else:
+                                sens="unknown"
+                    if random==3:
+                        if cases[casebatx][casebaty+1].case_attaquee==False:
+                            cases[casebatx][casebaty+1].attacked()
+                            if cases[casebatx][casebaty+1].bateau==True:
+                                sens="vertical"
+                            else:
+                                sens="unknown"
+                    if random==4:
+                        if cases[casebatx][casebaty-1].case_attaquee==False:
+                            cases[casebatx][casebaty-1].attacked()
+                            if cases[casebatx][casebaty-1].bateau==True:
+                                sens="vertical"
+                            else:
+                                sens="unknown"
+                except IndexError: 
+                    pass
             else:   
                 a,b=rancoord()
                 while cases[a][b].case_attaquee==True:
@@ -274,40 +305,55 @@ class ai:
                 #while [a][b].bateau==True:
                 #  if class bateau.bateaucoulee==True:
                 #   ai()
-                
+                essai=False
                 if cases[a][b].bateau==True:
-                    random=ranai()
-                    if random==1:
-                        if cases[a+1][b].case_attaquee==False:
-                            cases[a+1][b].attacked()
-                            if cases[a+1][b].bateau==True:
-                                sens="horizontal"
-                            else:
-                                sens="unknown"
+                    while essai==False:
+                        if cases[a][b-1].case_attaquee==True and cases[a][b+1].case_attaquee==True and cases[a-1][b].case_attaquee==True and cases[a+1][b].case_attaquee==False:
+                            sens="none"
+                            essai=True
+                            a,b=rancoord()
+                            while cases[a][b].case_attaquee==True:
+                                a,b=rancoord()
+                                cases[a][b].attacked()
+                        random=ranai()
+                        if random==1:
+                            if cases[a+1][b].case_attaquee==False:
+                                cases[a+1][b].attacked()
+                                essai=True
+                                if cases[a+1][b].bateau==True:
+                                    sens="horizontal"
+                                else:
+                                    sens="unknown"
                                 
-                    if random==2:
-                        if cases[a-1][b].case_attaquee==False:
-                            cases[a-1][b].attacked()
-                            if cases[a-1][b].bateau==True:
-                                sens="horizontal"
-                            else:
-                                sens="unknown"
-                    if random==3:
-                        if cases[a][b+1].case_attaquee==False:
-                            cases[a][b+1].attacked()
-                            if cases[a][b+1].bateau==True:
-                                sens="vertical"
-                            else:
-                                sens="unknown"
-                    if random==4:
-                        if cases[a][b-1].case_attaquee==False:
-                            cases[a][b-1].attacked()
-                            if cases[a][b-1].bateau==True:
-                                sens="vertical"
-                            else:
-                                sens="unknown"
+                        if random==2:
+                            if cases[a-1][b].case_attaquee==False:
+                                cases[a-1][b].attacked()
+                                essai=True
+                                if cases[a-1][b].bateau==True:
+                                    sens="horizontal"
+                                else:
+                                    sens="unknown"
+                        if random==3:
+                            if cases[a][b+1].case_attaquee==False:
+                                cases[a][b+1].attacked()
+                                essai=True
+                                if cases[a][b+1].bateau==True:
+                                    sens="vertical"
+                                else:
+                                    sens="unknown"
+                        if random==4:
+                            if cases[a][b-1].case_attaquee==False:
+                                cases[a][b-1].attacked()
+                                essai=True
+                                if cases[a][b-1].bateau==True:
+                                    sens="vertical"
+                                else:
+                                    sens="unknown"
+                    global casebatx
+                    global casebaty
                     casebatx=a
                     casebaty=b
+                        
         except IndexError:
             pass       
 
