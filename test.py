@@ -238,7 +238,7 @@ def sens(event):
         print(orientation)                  
                   
 """
-
+"""
 def placer_boats(event):    #a mettre dans la classe boat
     n=2
     erreurplacement="placer le bateau en une ligne"
