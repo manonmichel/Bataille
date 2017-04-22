@@ -1,4 +1,3 @@
-
 import tkinter as tk
 import random
 #==============================================================================
@@ -8,6 +7,7 @@ largeurcadre=400
 l=largeurcadre/10
 h=hauteurcadre/10
 sens="none"
+ships=[]
 #==============================================================================
 
 master = tk.Tk()
@@ -23,7 +23,7 @@ game_mode=False
 def gamemode():        #Seperates the moment of boat placement from the game play
     global game_mode
     game_mode=True
-    
+"""   
 class case:
     def __init__(self, x, y):
         self.x=x
@@ -77,7 +77,6 @@ class case:
         self.boat()
         print(self.case_attaquee and self.bateau)
 """    
-
 class case:
     def __init__(self, x, y):
         self.x=x
@@ -99,7 +98,6 @@ class case:
             cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
         
         cadre.tag_bind(rect, "<Button-1>", self.click)
-
     def boat(self):
         if self.bateau==False:
             self.bateau=True
@@ -107,8 +105,6 @@ class case:
         else:
             self.bateau=False
             self.draw()
-
-
     def color(self):
         couleur="white"
         if self.bateau==True:
@@ -166,7 +162,7 @@ class case:
     def checks(self):
         return self.check_self() and self.check_surrounding()
         
-"""
+
                   
 class ship:
     def __init__(self,l,orient):
@@ -179,7 +175,7 @@ class ship:
         
     def placement(self,x,y):
         for i in range(self.length):
-            if self.orientation=='N':  #vérifie que le bateau rentre dans le cadre
+            if self.orientation=='S':  #vérifie que le bateau rentre dans le cadre
                 if y+self.length>9:
                     return 'Erreur'
                 else:
@@ -191,7 +187,7 @@ class ship:
                 else:
                     cases[x-i][y].boat()
                     self.cases(x,y+i)
-            elif self.orientation=='S':
+            elif self.orientation=='N':
                 if y-self.length<-1:
                     return 'Erreur'
                 else:
@@ -208,7 +204,6 @@ class ship:
         self.endroits.append(cases[x][y])
  
 """
-
 def sens(event):
     global ships
     global orientation
@@ -569,5 +564,3 @@ ai = tk.Button(master, text = 'ai', command = ai.aiattack).grid(row=0, column=1)
 play=tk.Button(master, text="Jouer", width="10", height="2", command=gamemode).grid(column=2, row=0)
 
 master.mainloop()
-
-
