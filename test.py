@@ -177,7 +177,7 @@ class case:
     def checks(self):
         return self.check_self() and self.check_surrounding()
         
-
+"""
                   
 class ship:
     def __init__(self,l,orient):
@@ -217,7 +217,8 @@ class ship:
                     
     def cases(self,x,y):
         self.endroits.append(cases[x][y])
-"""                
+ 
+"""
 #%%    
 
 def sens(event):
