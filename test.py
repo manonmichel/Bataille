@@ -23,6 +23,9 @@ game_mode=False
 def gamemode():        #Seperates the moment of boat placement from the game play
     global game_mode
     game_mode=True
+    cadre.configure(cursor='boat')
+    master.configure(cursor='boat')
+    boatframe.configure(cursor='boat')
 """   
 class case:
     def __init__(self, x, y):
