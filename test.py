@@ -35,27 +35,6 @@ def gamemode():        #Seperates the moment of boat placement from the game pla
     global game_mode
     game_mode=True
     
-import tkinter as tk
-import random
-#==============================================================================
-taillejeu="1080x1080"
-hauteurcadre=800
-largeurcadre=400
-l=largeurcadre/10
-h=hauteurcadre/10
-sens="none"
-casebatx=0
-casebaty=0
-#==============================================================================
-
-master = tk.Tk()
-master.title("Bataille Navale")
-master.geometry(taillejeu)
-tk.Frame(master).grid()
-cadre=tk.Canvas(master, width=largeurcadre, height=hauteurcadre,bg="white")
-cadre.grid(column=0, row=0)
-
-
 class case:
     def __init__(self, x, y):
         self.x=x
