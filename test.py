@@ -324,13 +324,33 @@ class ai:
         try:    
             if sens=="vertical":
                 pass
-                #liste1=[1,-1,2,-2,3,-3,4,-4,5,-5]
-                #liste2=[0,0,0,0,0,0,0,0,0,0,0,0]
-                #while ship not False:
-                    #for i in range n:
-                        #try:
-                            #cases[][liste1[i]]
-                        #except IndexError:
+            
+                essai=False
+                liste1=[1,2,3,4,-1,-2,-3,-4]
+                while essai==False:
+                    for i in range(len(liste1)):
+                        if bateau[casebatx][casebaty].coulee==True:
+                            sens="none"
+                            direction="none"
+                            ai()
+                            essai=True
+                        else:
+                            try:
+                                if direction=="gauche":
+                                    for j in range(4,7):
+                                        if cases[casebatx][casebaty+liste1[j]].case_attaquee==False:
+                                            cases[casebatx][casebaty+liste1[j]].attacked
+                                            essai=True
+                                    pass
+                                else:
+                                    if cases[casebatx][casebaty+liste1[i]].case_attaquee==False:
+                                        cases[casebatx][casebaty+liste1[i]].attacked
+                                        essai=True
+                                        if cases[casebatx][casebaty+liste1[i]].bateau==False:
+                                            direction="gauche"
+                                           
+                            except IndexError:
+                                pass
             if sens=="horizontal":
                 pass
             if sens=="unknown":
@@ -380,16 +400,12 @@ class ai:
                                     sens="unknown"
                 except IndexError: 
                     pass
+                
             else:   
                 a,b=rancoord()
                 while cases[a][b].case_attaquee==True:
                     a,b=rancoord()
                 cases[a][b].attacked()
-            
-            
-                #while [a][b].bateau==True:
-                #  if class bateau.bateaucoulee==True:
-                #   ai()
                 essai=False
                 if cases[a][b].bateau==True:
                     while essai==False:
@@ -434,14 +450,11 @@ class ai:
                                     sens="vertical"
                                 else:
                                     sens="unknown"
-                    global casebatx
-                    global casebaty
                     casebatx=a
                     casebaty=b
                         
         except IndexError:
             pass    
-
         
 
 
