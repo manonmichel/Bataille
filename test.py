@@ -219,7 +219,6 @@ class ship:
         self.endroits.append(cases[x][y])
  
 """
-#%%    
 
 def sens(event):
     global ships
@@ -314,6 +313,13 @@ class ai:
         try:    
             if sens=="vertical":
                 pass
+                #liste1=[1,-1,2,-2,3,-3,4,-4,5,-5]
+                #liste2=[0,0,0,0,0,0,0,0,0,0,0,0]
+                #while ship not False:
+                    #for i in range n:
+                        #try:
+                            #cases[][liste1[i]]
+                        #except IndexError:
             if sens=="horizontal":
                 pass
             if sens=="unknown":
