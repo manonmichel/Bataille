@@ -92,7 +92,7 @@ class case:
                 bateau_selectionne.placement(self.x, self.y)
         else:   
             self.attacked()
-            print(self.case_attaquee and self.bateau
+            print(self.case_attaquee and self.bateau)
                   
     def check_self(self):
         if self.bateau==True:
