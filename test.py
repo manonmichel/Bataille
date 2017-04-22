@@ -106,8 +106,9 @@ class case:
         ycoordinate=[0,+1,-1,0]
         for i in range(4):
             try:
-                print(cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])])
-                if (cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])]).bateau==True:
+                adjacent_case=cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])]
+                print(adjacent_case)
+                if adjacent_case.bateau==True:
                     return False
             except:
                     IndexError
