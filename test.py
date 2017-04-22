@@ -16,6 +16,19 @@ tk.Frame(master).grid()
 cadre=tk.Canvas(master, width=largeurcadre, height=hauteurcadre,bg="white")
 cadre.grid(column=0, row=0)
 
+def create():
+    
+    global creation
+    
+    if creation==True:
+        creation=False
+    else:
+        creation=True
+
+creation=False
+orientation='N'#ffaudra voir si on le fait rester à ce que cest ou si on le fait revenir a N
+
+
 
 class case:
     def __init__(self, x, y):
@@ -67,9 +80,102 @@ class case:
             self.draw()
     
     def click(self, event):
-        self.boat()
-        print(self.case_attaquee and self.bateau)
+        global creation
+        global orientation
+        if creation==True:
+            if self.check_surrounding()==False:
+                print('bite')
+            else:
+                global ships
+                ships.append(ship(3,orientation))
+                bateau_selectionne=ships[len(ships)-1]
+                bateau_selectionne.placement(self.x, self.y)
+        else:   
+            self.attacked()
+            print(self.case_attaquee and self.bateau
+                  
+    def check_self(self):
+        if self.bateau==True:
+            return False
+        else:
+            return True
+            
+            
+    def check_surrounding(self): #check s'il n'y a pas de bateau autour
+        xcoordinate=[-1,0,0,+1]
+        ycoordinate=[0,+1,-1,0]
+        for i in range(4):
+            try:
+                print(cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])])
+                if (cases[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])]).bateau==True:
+                    return False
+            except:
+                    IndexError
+        return True
+                
+                 
+    def checks(self):
+        return self.check_self() and self.check_surrounding()
         
+
+                  
+class ship:
+    def __init__(self,l,orient):
+        self.length=l
+        self.orientation=orient
+        self.endroits=[]
+    
+    def __repr__(self):
+        return str(self.length)
+        
+    def placement(self,x,y):
+        for i in range(self.length):
+            if self.orientation=='N':
+                if y+self.length>9:
+                    return 'Erreur'
+                else:
+                    cases[x][y+i].boat()
+                    self.cases(x,y+i)
+            elif self.orientation=='E':
+                if x-self.length<-1:
+                    return 'Erreur'
+                else:
+                    cases[x-i][y].boat()
+                    self.cases(x,y+i)
+            elif self.orientation=='S':
+                if y-self.length<-1:
+                    return 'Erreur'
+                else:
+                    cases[x][y-i].boat()
+                    self.cases(x,y+i)
+            elif self.orientation=='W':
+                if x+self.length>9:
+                    return 'Erreur'
+                else:
+                    cases[x+i][y].boat()
+                    self.cases(x,y+i)
+                    
+    def cases(self,x,y):
+        self.endroits.append(cases[x][y])
+                
+#%%    
+
+def sens(event):
+    global ships
+    global orientation
+    if orientation=='N':
+        orientation='E'
+        print(orientation)
+    elif orientation=='E':
+        orientation='S'
+        print(orientation)
+    elif orientation=='S':
+        orientation='W'
+        print(orientation)
+    elif orientation=='W':
+        orientation='N'
+        print(orientation)                  
+                  
 """
 def placer_boats(event):    #a mettre dans la classe boat
     n=2
@@ -145,41 +251,35 @@ class ai:
                 pass
             if sens=="horizontal":
                 pass
-            if sens=="unknown":
-                pass
             else:   
                 a,b=rancoord()
                 while cases[a][b].case_attaquee==True:
                     a,b=rancoord()
-                cases[a][b].attacked()
+                    cases[a][b].attacked()
             
             
                 #while [a][b].bateau==True:
                 #  if class bateau.bateaucoulee==True:
                 #   ai()
-                if cases[a][b].bateau==True:
-                    c=[-1,1]
-                    d=[0,0]
-                    for i in range(2):    
-                        if cases[a+c[i]][b+d[i]].case_attaquee==False:
-                            cases[a+c[i]][b+d[i]].attacked()
-                            if cases[a+c[i]][b+d[i]].bateau==True:
-                                print("horiz")
-                                sens="horizontal"
-                            else:
-                                sens="unknown"
-                            break
-                        if cases[a+d[i]][b+c[i]].case_attaquee==False:
-                            cases[a+d[i]][b+c[i]].attacked()
-                            if cases[a+d[i]][b+c[i]].bateau==True:
-                                print("vertic")
-                                sens="vertical"
-                            else:
-                                sens="unknown"
-                            
-                            break
+        
+                c=[-1,+1]
+                d=[0,0]
+
+                for i in range(2):    
+                    if cases[a+c[i]][b+d[i]].case_attaquee==False:
+                        cases[a+c[i]][b+d[i]].attacked()
+                        if cases[a+c[i]][b+d[i]].bateau==True:
+                            sens="horizontal"
+                        break
+                    if cases[a+d[i]][b+c[i]].case_attaquee==False:
+                        cases[a+d[i]][b+c[i]].attacked()
+                        if cases[a+d[i]][b+c[i]].bateau==True:
+                            sens="vertical"
+                        break
         except IndexError:
-            pass      
+            pass       
+        
+
 
 
 caseadversaire=[]
