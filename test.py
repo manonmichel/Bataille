@@ -35,6 +35,80 @@ def gamemode():        #Seperates the moment of boat placement from the game pla
     global game_mode
     game_mode=True
     
+import tkinter as tk
+import random
+#==============================================================================
+taillejeu="1080x1080"
+hauteurcadre=800
+largeurcadre=400
+l=largeurcadre/10
+h=hauteurcadre/10
+sens="none"
+casebatx=0
+casebaty=0
+#==============================================================================
+
+master = tk.Tk()
+master.title("Bataille Navale")
+master.geometry(taillejeu)
+tk.Frame(master).grid()
+cadre=tk.Canvas(master, width=largeurcadre, height=hauteurcadre,bg="white")
+cadre.grid(column=0, row=0)
+
+
+class case:
+    def __init__(self, x, y):
+        self.x=x
+        self.y=y
+        self.bateau=False
+        self.case_attaquee=False        
+        self.xdebut=x*l
+        self.xfin=(x+1)*l
+        self.ydebut=y*(h/2)+hauteurcadre/2
+        self.yfin=y*(h/2)+(h/2)+hauteurcadre/2
+        self.draw()
+    def __repr__(self):
+        return str(self.x) + ','+str(self.y)
+    
+    def draw(self):
+        rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
+        if self.bateau==True and self.attacked==True:
+            cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
+            cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
+        
+        cadre.tag_bind(rect, "<Button-1>", self.click)
+
+    def boat(self):
+        if self.bateau==False:
+            self.bateau=True
+            self.draw()
+        else:
+            self.bateau=False
+            self.draw()
+
+
+    def color(self):
+        couleur="white"
+        if self.bateau==True:
+            couleur="grey"
+        if self.case_attaquee and self.bateau:
+            couleur="red"
+        elif self.case_attaquee==True and self.bateau==False:
+            couleur="blue"
+        return couleur
+    
+    def attacked(self):
+        if self.case_attaquee==False:
+            self.case_attaquee=True
+            self.draw()
+        else:
+            self.case_attaquee=False
+            self.draw()
+    
+    def click(self, event):
+        self.boat()
+        print(self.case_attaquee and self.bateau)
+"""    
 
 class case:
     def __init__(self, x, y):
@@ -164,7 +238,7 @@ class ship:
                     
     def cases(self,x,y):
         self.endroits.append(cases[x][y])
-                
+"""                
 #%%    
 
 def sens(event):
@@ -184,6 +258,7 @@ def sens(event):
         print(orientation)                  
                   
 """
+
 def placer_boats(event):    #a mettre dans la classe boat
     n=2
     erreurplacement="placer le bateau en une ligne"
