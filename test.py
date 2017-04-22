@@ -122,22 +122,41 @@ class case:
         else:
             self.case_attaquee=False
             self.draw()
+            
+            """def place(event):
+    global orientation
+    global bl
+    global selectable
+    global ships
+    if selectable==False:
+        s=ship(bl,orientation)    #ne fonctionne pas encore 
+        s.placement(event.x, event.y)
+        selectable=True
+    else:
+        print('Please select a boat to place.')"""
     
     def click(self, event):
         global game_mode
         global orientation
-        if game_mode==False:
-            if self.check_surrounding()==False:
-                print('Boats can not be adjacent.')
-            else:
-                global ships
-                ships.append(ship(3,orientation))
-                bateau_selectionne=ships[len(ships)-1]
-                bateau_selectionne.placement(self.x, self.y)
-        else:   
-            self.attacked()
-            print(self.case_attaquee and self.bateau)
-                  
+        global bl
+        global selectable
+        global ships
+        if selectable==False:
+            if game_mode==False:
+                if self.check_surrounding()==False:
+                    print('Boats can not be adjacent.')
+                else:
+                    global ships
+                    ships.append(ship(bl,orientation))
+                    bateau_selectionne=ships[len(ships)-1]
+                    bateau_selectionne.placement(self.x, self.y)
+                    selectable=True
+            else:   
+                self.attacked()
+                print(self.case_attaquee and self.bateau)
+        else:
+             print('Please select a boat to place.')
+         
     def check_self(self):
         if self.bateau==True:
             return False
@@ -437,121 +456,108 @@ boatframe.grid(column=1,row=0, sticky="N")
 selectable=True #variable qui assure que seulement un bateau soit séléctionné à la fois
 bl=0
 
-def boat_selection():
-    l=largeurcadre/10
-    h=hauteurcadre/10
+
+l=largeurcadre/10
+h=hauteurcadre/10
+
+ 
+b5_coord = (l+300),(h-40), (l+300),h, (l+50),h, (l+50),(h-40)
+b4_coord = (l+270),(h+30), (l+270),(h+70), (l+80),(h+70), (l+80),(h+30)
+b3_coord = (l+240),(h+100), (l+240),(h+140), (l+110),(h+140), (l+110),(h+100)
+b2_coord = (l+210),(h+170), (l+210),(h+210), (l+140),(h+210), (l+140),(h+170)
     
-    b5_coord = (l+300),(h-40), (l+300),h, (l+50),h, (l+50),(h-40)
-    b4_coord = (l+270),(h+30), (l+270),(h+70), (l+80),(h+70), (l+80),(h+30)
-    b3_coord = (l+240),(h+100), (l+240),(h+140), (l+110),(h+140), (l+110),(h+100)
-    b2_coord = (l+210),(h+170), (l+210),(h+210), (l+140),(h+210), (l+140),(h+170)
-    
-    """
+"""
     for i in range (2,5): 
         bi=boatframe.create_polygon(bi_coord, fill="blue")
         def clicked_bi(event):
             print("Boat i selected")
             boatframe.create_polygon(bi_coord, fill="grey")
         boatframe.tag_bind(bi,"<Button-1>",clicked_bi)
-    """
+"""
     
-    b5=boatframe.create_polygon(b5_coord, fill="blue")
-    b4=boatframe.create_polygon(b4_coord, fill="blue")
-    b3=boatframe.create_polygon(b3_coord, fill="blue")
-    b2=boatframe.create_polygon(b2_coord, fill="blue")
+b5=boatframe.create_polygon(b5_coord, fill="blue")
+b4=boatframe.create_polygon(b4_coord, fill="blue")
+b3=boatframe.create_polygon(b3_coord, fill="blue")
+b2=boatframe.create_polygon(b2_coord, fill="blue")
 
     
-    def clicked_b5(event):
-        global bl
-        global selectable 
-        if selectable==True:
-            selectable=False
-            print("Boat 5 selected")
-            boatframe.create_polygon(b5_coord, fill="grey")
-            rotate_north(event)
-            bl=5
-        else: 
-            print("Veuillez placer le bateau avant de selectionner un autre.")
-    def clicked_b4(event):
-        global bl
-        global selectable 
-        if selectable==True:
-            selectable=False
-            print("Boat 4 selected")
-            boatframe.create_polygon(b4_coord, fill="grey")
-            rotate_north(event)
-            bl=4
-        else: 
-            print("Veuillez placer le bateau avant de selectionner un autre.")
-    def clicked_b3(event):
-        global bl
-        global selectable 
-        if selectable==True:
-            selectable=False
-            print("Boat 3 selected")
-            boatframe.create_polygon(b3_coord, fill="grey")
-            rotate_north(event)
-            bl=3
-        else: 
-            print("Veuillez placer le bateau avant de selectionner un autre.")
-    def clicked_b2(event):
-        global bl
-        global selectable 
-        if selectable==True:
-            selectable=False
-            print("Boat 2 selected")
-            boatframe.create_polygon(b2_coord, fill="grey")
-            rotate_north(event)
-            bl=2
-        else: 
-            print("Veuillez placer le bateau avant de selectionner un autre.")
-    
-    def rotate_north(event): #Default orientation
-        global orientation
-        cadre.configure(cursor='sb_up_arrow')
-        boatframe.configure(cursor='sb_up_arrow')
-        orientation='N'
-    def rotate_east(event):
-        global orientation
-        cadre.configure(cursor='sb_left_arrow')
-        boatframe.configure(cursor='sb_left_arrow')
-        orientation='E'
-    def rotate_south(event):
-        global orientation
-        cadre.configure(cursor='sb_down_arrow')
-        boatframe.configure(cursor='sb_down_arrow')
-        orientation='S'
-    def rotate_west(event):
-        global orientation
-        cadre.configure(cursor='sb_right_arrow')
-        boatframe.configure(cursor='sb_right_arrow')
-        orientation='W'
-    
-    boatframe.tag_bind(b5,"<Button-1>",clicked_b5)
-    boatframe.tag_bind(b4,"<Button-1>",clicked_b4)
-    boatframe.tag_bind(b3,"<Button-1>",clicked_b3)
-    boatframe.tag_bind(b2,"<Button-1>",clicked_b2)
+def clicked_b5(event):
+    global bl
+    global selectable 
+    if selectable==True:
+        selectable=False
+        print("Boat 5 selected")
+        boatframe.create_polygon(b5_coord, fill="grey")
+        rotate_north(event)
+        bl=5
+    else: 
+        print("Veuillez placer le bateau avant de selectionner un autre.")
 
-    master.bind('<Left>', rotate_east)
-    master.bind('<Up>', rotate_north)
-    master.bind('<Down>', rotate_south)
-    master.bind('<Right>', rotate_west)
-    
-    def place(event):
-        global orientation
-        global bl
-        global selectable
-        global ships
-        if selectable==False:
-            s=ship(bl,orientation)    #ne fonctionne pas encore 
-            s.placement(event.x, event.y)
-            selectable=True
-        else:
-            print('Please select a boat to place.')
-     
-    cadre.bind('<Button-1>', place)
+def clicked_b4(event):
+    global bl
+    global selectable 
+    if selectable==True:
+        selectable=False
+        print("Boat 4 selected")
+        boatframe.create_polygon(b4_coord, fill="grey")
+        rotate_north(event)
+        bl=4
+    else: 
+        print("Veuillez placer le bateau avant de selectionner un autre.")
+def clicked_b3(event):
+    global bl
+    global selectable 
+    if selectable==True:
+        selectable=False
+        print("Boat 3 selected")
+        boatframe.create_polygon(b3_coord, fill="grey")
+        rotate_north(event)
+        bl=3
+    else: 
+        print("Veuillez placer le bateau avant de selectionner un autre.")
+def clicked_b2(event):
+    global bl
+    global selectable 
+    if selectable==True:
+        selectable=False
+        print("Boat 2 selected")
+        boatframe.create_polygon(b2_coord, fill="grey")
+        rotate_north(event)
+        bl=2
+    else: 
+        print("Veuillez placer le bateau avant de selectionner un autre.")
+def rotate_north(event): #Default orientation
+    global orientation
+    cadre.configure(cursor='sb_up_arrow')
+    boatframe.configure(cursor='sb_up_arrow')
+    orientation='N'
+def rotate_east(event):
+    global orientation
+    cadre.configure(cursor='sb_left_arrow')
+    boatframe.configure(cursor='sb_left_arrow')
+    orientation='E'
+def rotate_south(event):
+    global orientation
+    cadre.configure(cursor='sb_down_arrow')
+    boatframe.configure(cursor='sb_down_arrow')
+    orientation='S'
+def rotate_west(event):
+    global orientation
+    cadre.configure(cursor='sb_right_arrow')
+    boatframe.configure(cursor='sb_right_arrow')
+    orientation='W'
 
-boat_selection()
+boatframe.tag_bind(b5,"<Button-1>",clicked_b5)
+boatframe.tag_bind(b4,"<Button-1>",clicked_b4)
+boatframe.tag_bind(b3,"<Button-1>",clicked_b3)
+boatframe.tag_bind(b2,"<Button-1>",clicked_b2)
+master.bind('<Left>', rotate_east)
+master.bind('<Up>', rotate_north)
+master.bind('<Down>', rotate_south)
+master.bind('<Right>', rotate_west)
+    
+
+
 #====================================================================
 """
 def changement(event):
