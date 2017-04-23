@@ -7,6 +7,9 @@ largeurcadre=400
 l=largeurcadre/11
 h=hauteurcadre/11
 sens="none"
+direction="none"
+casebatx=0
+casebaty=0
 ships=[]
 #==============================================================================
 
@@ -321,7 +324,6 @@ class ai:
         global direction
         global casebatx
         global casebaty
-        print(sens)
         print(casebatx,casebaty)
         if attacked_all()== True:
             return False
@@ -342,12 +344,12 @@ class ai:
                                 if direction=="bas":
                                     for j in range(4,8):
                                         if cases[casebatx][casebaty+liste1[j]].case_attaquee==False:
-                                            cases[casebatx][casebaty+liste1[j]].attacked
+                                            cases[casebatx][casebaty+liste1[j]].attacked()
                                             essai=True
                                     pass
                                 else:
                                     if cases[casebatx][casebaty+liste1[i]].case_attaquee==False:
-                                        cases[casebatx][casebaty+liste1[i]].attacked
+                                        cases[casebatx][casebaty+liste1[i]].attacked()
                                         essai=True
                                         if cases[casebatx][casebaty+liste1[i]].bateau==False:
                                             direction="bas"
@@ -356,39 +358,36 @@ class ai:
                                 pass
             
             if sens=="horizontal":
-                print(direction)
                 essai=False
                 liste1=[1,2,3,4,-1,-2,-3,-4]
-                while essai==False:
-                    for i in range(len(liste1)):
-                  #      if bateau[casebatx][casebaty].coulee==True:
-                   #         sens="none"
-                    #        direction="none"
-                     #       ai()
-                     #      essai=True
-                        ya=0
-                        if ya==1:
-                            pass
-                        else:
-                            try:
-                                if direction=="droite":
-                                    for j in range(4,8):
-                                        print(cases[casebatx+liste1[j]][casebaty].case_attaquee)
-                                        if cases[casebatx+liste1[j]][casebaty].case_attaquee==False:
-                                            cases[casebatx+liste1[j]][casebaty+liste1[j]].attacked
-                                            print(cases[casebatx+liste1[j]][casebaty+liste1[j]])
-                                            essai=True
-                                        else:
-                                            pass
-                                else:
-                                    if cases[casebatx+liste1[i]][casebaty].case_attaquee==False:
-                                        cases[casebatx+liste1[i]][casebaty].attacked
-                                        essai=True
-                                        if cases[casebatx+liste1[i]][casebaty].bateau==False:
-                                            direction="droite"
+                for i in range(len(liste1)):
+                #      if bateau[casebatx][casebaty].coulee==True:
+                #         sens="none"
+                #        direction="none"
+                #       ai()
+                #      essai=True
+                    ya=0
+                    if ya==1:
+                        pass
+                    else:
+                        try:
+                            if direction=="gauche":
+                                for j in range(4,8):
+                                    print(cases[casebatx+liste1[j]][casebaty].case_attaquee)
+                                    if cases[casebatx+liste1[j]][casebaty].case_attaquee==False:
+                                        cases[casebatx+liste1[j]][casebaty].attacked()
+                                        return
+                                    else:
+                                        pass
+                            else:
+                                if cases[casebatx+liste1[i]][casebaty].case_attaquee==False:
+                                    cases[casebatx+liste1[i]][casebaty].attacked()
+                                    essai=True
+                                    if cases[casebatx+liste1[i]][casebaty].bateau==False:
+                                        direction="gauche"
                                            
-                            except IndexError:
-                                pass
+                        except IndexError:
+                            pass
                             
             if sens=="unknown":
                 try:
