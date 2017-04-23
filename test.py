@@ -4,8 +4,8 @@ import random
 taillejeu="1080x1080"
 hauteurcadre=800
 largeurcadre=400
-l=largeurcadre/10
-h=hauteurcadre/10
+l=largeurcadre/11
+h=hauteurcadre/11
 sens="none"
 ships=[]
 #==============================================================================
@@ -503,10 +503,10 @@ class ai:
 
 caseadversaire=[]
 cases=[]
-for i in range(9):
+for i in range(10):
     cases.append([])
     caseadversaire.append([])
-    for j in range(9):
+    for j in range(10):
         cases[i].append(case(i,j))
         caseadversaire[i].append(ai(i,j))
       
