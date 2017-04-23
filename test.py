@@ -147,14 +147,19 @@ class case:
         global bl
         global selectable
         global ships
+        environs=True
         if selectable==False:
             if game_mode==False:
-                if self.check_surrounding()==False:
-                    print('Boats can not be adjacent.')
-                else:
-                    global ships
-                    ships.append(ship(bl,orientation))
-                    bateau_selectionne=ships[len(ships)-1]
+                ships.append(ship(bl,orientation))
+                bateau_selectionne=ships[len(ships)-1]
+                bateau_selectionne.projet(self.x,self.y)
+                for i in range(len(bateau_selectionne.projection)):
+                    print(bateau_selectionne.projection[i])
+                    print(bateau_selectionne.projection[i].check_surrounding())
+                    if bateau_selectionne.projection[i].check_surrounding()==False:
+                        print('Boats can not be adjacent.')
+                        environs=False
+                if environs==True:
                     if bateau_selectionne.check_placement(self.x, self.y)==False:
                         print('Boat out of area.')
                     else:
@@ -215,23 +220,34 @@ class ship:
                 if x+self.length>9:
                     return False
         
+    def projet(self, x,y):
+        for i in range(self.length):
+            if self.orientation=='S':  
+                self.cases(self.projection,x,y+i)
+            elif self.orientation=='E':
+                self.cases(self.projection,x-i,y)
+            elif self.orientation=='N':
+                self.cases(self.projection,x,y-i)
+            elif self.orientation=='W':
+                self.cases(self.projection,x+i,y)
+                    
     def placement(self,x,y):
         for i in range(self.length):
-            if self.orientation=='S':  #vérifie que le bateau rentre dans le cadre
-                cases[x][y+i].boat()  # what if one of the cases is already a boat
-                self.cases(x,y+i)
+            if self.orientation=='S':  
+                cases[x][y+i].boat()  
+                self.cases(self.endroits,x,y+i)
             elif self.orientation=='E':
                 cases[x-i][y].boat()
-                self.cases(x-i,y)
+                self.cases(self.endroits,x-i,y)
             elif self.orientation=='N':
                 cases[x][y-i].boat()
-                self.cases(x,y-i)
+                self.cases(self.endroits,x,y-i)
             elif self.orientation=='W':
                 cases[x+i][y].boat()
-                self.cases(x+i,y)
+                self.cases(self.endroits,x+i,y)
                     
-    def cases(self,x,y):
-        self.endroits.append(cases[x][y])
+    def cases(self,liste,x,y):
+        liste.append(cases[x][y])
         
     def bateau_en_vie(self):
         level=0
