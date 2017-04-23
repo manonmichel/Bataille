@@ -202,7 +202,7 @@ class ship:
         self.length=l
         self.orientation=orient
         self.endroits=[]
-    
+        self.projection=[]
     def __repr__(self):
         return str(self.length)
     
