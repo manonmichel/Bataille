@@ -232,6 +232,13 @@ class ship:
                     
     def cases(self,x,y):
         self.endroits.append(cases[x][y])
+        
+    def bateau_en_vie(self):
+    level=0
+    for i in range(self.length):
+        if self.endroits[i].case_attaquee==False:
+            level=level+1
+    return level/self.length
  
 """
 def sens(event):
