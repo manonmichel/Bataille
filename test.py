@@ -380,7 +380,8 @@ class ai:
                             try:
                                 if direction=="gauche":
                                     for j in range(4,8):
-                                        while essai==False:
+                                        print(j)
+                                        while essai==True:
                                             print(cases[casebatx+liste1[j]][casebaty].case_attaquee)
                                             if cases[casebatx+liste1[j]][casebaty].case_attaquee==False:
                                                 cases[casebatx+liste1[j]][casebaty].attacked()
@@ -388,12 +389,13 @@ class ai:
                                             else:
                                                 pass
                                 else:
-                                    if cases[casebatx+liste1[i]][casebaty].case_attaquee==False:
+                                    if cases[casebatx+liste1[i]][casebaty].case_attaquee==False: #a revoir
                                         cases[casebatx+liste1[i]][casebaty].attacked()
                                         essai=True
-                                        if cases[casebatx+liste1[i]][casebaty].bateau==False:
+                                    if cases[casebatx+liste1[i]][casebaty].bateau==False:
                                             direction="gauche"
-                                           
+                                        
+
                             except IndexError:
                                 pass
                             
