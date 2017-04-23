@@ -590,7 +590,7 @@ def clicked_b3(event):
         print("Boat 3 selected")
         selectable=False
         if compteur_b3==0: 
-            boatframe.itemconfigure(3, fill='#5DADE2')
+            boatframe.itemconfigure(3, fill='#A9CCE3')
             boatframe.itemconfigure(7, text='x 1')
         elif compteur_b3==1:
             boatframe.itemconfigure(3, fill='grey')
