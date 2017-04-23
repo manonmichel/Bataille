@@ -200,7 +200,7 @@ class ship:
     
     def check_placement(self, x, y):
         if self.orientation=='S':  #vérifie que le bateau rentre dans le cadre
-            if y+self.length>9:
+            if y+self.length>10:
                 return False
         elif self.orientation=='E':
             if x-self.length<-1:
@@ -209,7 +209,7 @@ class ship:
             if y-self.length<-1:
                 return False
         elif self.orientation=='W':
-                if x+self.length>9:
+                if x+self.length>10:
                     return False
         
     def placement(self,x,y):
