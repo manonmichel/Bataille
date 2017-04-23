@@ -316,10 +316,13 @@ class ai:
             couleur="blue"
         return couleur
             
-    def aiattack(): #genere une attaque automatique
+    def aiattack():
         global sens
         global direction
+        global casebatx
+        global casebaty
         print(sens)
+        print(casebatx,casebaty)
         if attacked_all()== True:
             return False
         try:    
@@ -368,18 +371,21 @@ class ai:
                             pass
                         else:
                             try:
-                                if direction=="gauche":
-                                    for j in range(4,7):
+                                if direction=="droite":
+                                    for j in range(4,8):
+                                        print(cases[casebatx+liste1[j]][casebaty].case_attaquee)
                                         if cases[casebatx+liste1[j]][casebaty].case_attaquee==False:
                                             cases[casebatx+liste1[j]][casebaty+liste1[j]].attacked
+                                            print(cases[casebatx+liste1[j]][casebaty+liste1[j]])
                                             essai=True
-                                    pass
+                                        else:
+                                            pass
                                 else:
                                     if cases[casebatx+liste1[i]][casebaty].case_attaquee==False:
                                         cases[casebatx+liste1[i]][casebaty].attacked
                                         essai=True
                                         if cases[casebatx+liste1[i]][casebaty].bateau==False:
-                                            direction="gauche"
+                                            direction="droite"
                                            
                             except IndexError:
                                 pass
@@ -399,28 +405,29 @@ class ai:
                         if random==1:
                             if cases[casebatx+1][casebaty].case_attaquee==False:
                                 cases[casebatx+1][casebaty].attacked()
-                                essai=True
                                 if cases[casebatx+1][casebaty].bateau==True:
                                     sens="horizontal"
                                 else:
                                     sens="unknown"
+                                essai=True
+                                
                                 
                         if random==2:
                             if cases[casebatx-1][casebaty].case_attaquee==False:
                                 cases[casebatx-1][casebaty].attacked()
-                                essai=True
                                 if cases[casebatx-1][casebaty].bateau==True:
                                     sens="horizontal"
                                 else:
                                     sens="unknown"
+                                essai=True
                         if random==3:
                             if cases[casebatx][casebaty+1].case_attaquee==False:
                                 cases[casebatx][casebaty+1].attacked()
-                                essai=True
                                 if cases[casebatx][casebaty+1].bateau==True:
                                     sens="vertical"
                                 else:
                                     sens="unknown"
+                                essai=True
                         if random==4:
                             if cases[casebatx][casebaty-1].case_attaquee==False:
                                 cases[casebatx][casebaty-1].attacked()
@@ -429,19 +436,21 @@ class ai:
                                     sens="vertical"
                                 else:
                                     sens="unknown"
+                                essai=True
                 except IndexError: 
                     pass
                 
-            else:   
+            elif sens=="none":   
                 a,b=rancoord()
                 while cases[a][b].case_attaquee==True:
                     a,b=rancoord()
                 cases[a][b].attacked()
                 essai=False
+            
                 if cases[a][b].bateau==True:
                     while essai==False:
                         if cases[a][b-1].case_attaquee==True and cases[a][b+1].case_attaquee==True and cases[a-1][b].case_attaquee==True and cases[a+1][b].case_attaquee==False:
-                            sens="none"
+                            sens="none"  #a revoir
                             essai=True
                             a,b=rancoord()
                             while cases[a][b].case_attaquee==True:
@@ -482,14 +491,14 @@ class ai:
                                 else:
                                     sens="unknown"
                                     
-                    global casebatx
-                    global casebaty
+
                     casebatx=a
                     casebaty=b
                         
         except IndexError:
             pass    
 
+        
 
 
 caseadversaire=[]
