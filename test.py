@@ -4,8 +4,8 @@ import random
 taillejeu="1080x1080"
 hauteurcadre=800
 largeurcadre=400
-l=largeurcadre/11
-h=hauteurcadre/11
+l=largeurcadre/10
+h=hauteurcadre/10
 sens="none"
 ships=[]
 #==============================================================================
@@ -200,7 +200,7 @@ class ship:
     
     def check_placement(self, x, y):
         if self.orientation=='S':  #vérifie que le bateau rentre dans le cadre
-            if y+self.length>10:
+            if y+self.length>9:
                 return False
         elif self.orientation=='E':
             if x-self.length<-1:
@@ -209,7 +209,7 @@ class ship:
             if y-self.length<-1:
                 return False
         elif self.orientation=='W':
-                if x+self.length>10:
+                if x+self.length>9:
                     return False
         
     def placement(self,x,y):
@@ -503,10 +503,10 @@ class ai:
 
 caseadversaire=[]
 cases=[]
-for i in range(10):
+for i in range(9):
     cases.append([])
     caseadversaire.append([])
-    for j in range(10):
+    for j in range(9):
         cases[i].append(case(i,j))
         caseadversaire[i].append(ai(i,j))
       
@@ -543,16 +543,24 @@ b4=boatframe.create_polygon(b4_coord, fill="blue")
 b3=boatframe.create_polygon(b3_coord, fill="blue")
 b2=boatframe.create_polygon(b2_coord, fill="blue")
 
-    
+nb_5=boatframe.create_text((l+320),(h-20), text='x 1')
+nb_4=boatframe.create_text((l+290),(h+50), text='x 1')
+nb_3=boatframe.create_text((l+260),(h+120), text='x 2')
+nb_2=boatframe.create_text((l+230),(h+190), text='x 3')
+ 
+compteur_b3=0
+compteur_b2=0
+   
 def clicked_b5(event):
     global bl
     global selectable 
     if selectable==True:
         selectable=False
         print("Boat 5 selected")
-        boatframe.create_polygon(b5_coord, fill="grey")
+        boatframe.itemconfigure(1, fill="grey")
         rotate_north(event)
         bl=5
+        boatframe.itemconfigure(5, text='x 0')
     else: 
         print("Veuillez placer le bateau avant de selectionner un autre.")
 
@@ -562,33 +570,53 @@ def clicked_b4(event):
     if selectable==True:
         selectable=False
         print("Boat 4 selected")
-        boatframe.create_polygon(b4_coord, fill="grey")
+        boatframe.itemconfigure(2, fill="grey")
         rotate_north(event)
         bl=4
+        boatframe.itemconfigure(6, text='x 0')
     else: 
         print("Veuillez placer le bateau avant de selectionner un autre.")
 def clicked_b3(event):
     global bl
     global selectable 
+    global compteur_b3
     if selectable==True:
-        selectable=False
         print("Boat 3 selected")
-        boatframe.create_polygon(b3_coord, fill="grey")
+        selectable=False
+        if compteur_b3==0: 
+            boatframe.itemconfigure(3, fill='#5DADE2')
+            boatframe.itemconfigure(7, text='x 1')
+        elif compteur_b3==1:
+            boatframe.itemconfigure(3, fill='grey')
+            boatframe.itemconfigure(7, text='x 0')
         rotate_north(event)
-        bl=3
+        bl=3    
+        compteur_b3=compteur_b3+1
     else: 
         print("Veuillez placer le bateau avant de selectionner un autre.")
 def clicked_b2(event):
     global bl
     global selectable 
+    global compteur_b2
     if selectable==True:
-        selectable=False
         print("Boat 2 selected")
-        boatframe.create_polygon(b2_coord, fill="grey")
+        selectable=False
+        if compteur_b2==0: 
+            boatframe.itemconfigure(4, fill='#5DADE2')
+            boatframe.itemconfigure(8, text='x 2')
+        elif compteur_b2==1:
+            boatframe.itemconfigure(4, fill='#A9CCE3')
+            boatframe.itemconfigure(8, text='x 1')
+        elif compteur_b2==2:
+            boatframe.itemconfigure(4, fill='grey')
+            boatframe.itemconfigure(8, text='x 0')        
         rotate_north(event)
-        bl=2
+        bl=2    
+        compteur_b2=compteur_b2+1
     else: 
         print("Veuillez placer le bateau avant de selectionner un autre.")
+            
+
 def rotate_north(event): #Default orientation
     global orientation
     cadre.configure(cursor='sb_up_arrow')
