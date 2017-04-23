@@ -658,6 +658,12 @@ master.bind('<Right>', rotate_west)
 
 
 #====================================================================
+def quel_bateau(case):
+    for i in range(len(ships)):
+        for j in range(len(ships[i].endroits)):
+            print(ships[i].endroits[j])
+            if ships[i].endroits[j]==case:
+                return i #ca te renvoie l'indice du bateau, genre cest le seul moyen de dire "quel bateau" cest
 """
 def changement(event):
     cases[0][0].boat()
