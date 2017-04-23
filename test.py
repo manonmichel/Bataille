@@ -343,45 +343,70 @@ class ai:
         return couleur
             
             
+            
     def aiattack():
         global sens
         global direction
         global casebatx
         global casebaty
         global ships
-        print(casebatx,casebaty)
+        print(direction)
+        print(sens)
         if attacked_all()== True:
             return False
+            
         try:    
             if sens=="vertical":
-            
                 essai=False
-                liste1=[1,2,3,4,-1,-2,-3,-4]
-                while essai==False:
-                    for i in range(len(liste1)):             
-                        if ships[quel_bateau(cases[casebatx][casebaty])].bateau_en_vie()== 0:
-                            print("ya")
-                            sens="none"
-                            direction="none"
-                            essai=True
-                            ai()
-                        else:
-                            try:
-                                if direction=="bas":
-                                    for j in range(4,8):
-                                        if cases[casebatx][casebaty+liste1[j]].case_attaquee==False:
-                                            cases[casebatx][casebaty+liste1[j]].attacked()
-                                            essai=True
-                                    pass
-                                else:
-                                    if cases[casebatx][casebaty+liste1[i]].case_attaquee==False:
-                                        cases[casebatx][casebaty+liste1[i]].attacked()
+                if ships[quel_bateau(cases[casebatx][casebaty])].bateau_en_vie()== 0:
+                    sens="none"
+                    direction="none"
+                else:
+                    while essai==False:
+                        try:
+                            if direction=="bas":
+                                while essai==True:
+                                    if cases[casebatx][casebaty-1].case_attaquee==False: #a revoir
+                                        cases[casebatx][casebaty-1].attacked()
                                         essai=True
-                                        if cases[casebatx][casebaty+liste1[i]].bateau==False:
-                                            direction="bas"
-                                           
-                            except IndexError:
-                                pass
+                                    elif cases[casebatx][casebaty-2].case_attaquee==False: #a revoir
+                                        cases[casebatx][casebaty-2].attacked()
+                                        essai=True
+                                    elif cases[casebatx][casebaty-3].case_attaquee==False: #a revoir
+                                        cases[casebatx][casebaty-3].attacked()
+                                        essai=True
+                                    elif cases[casebatx][casebaty-4].case_attaquee==False: #a revoir
+                                        cases[casebatx][casebaty-4].attacked()
+                                        essai=True
+
+                            else:
+                                if cases[casebatx][casebaty+1].case_attaquee==False: #a revoir
+                                    cases[casebatx][casebaty+1].attacked()
+                                    essai=True
+                                    if cases[casebatx][casebaty+1].bateau==False:
+                                        direction="haut"
+                                        
+                                elif cases[casebatx][casebaty+2].case_attaquee==False: #a revoir
+                                    cases[casebatx][casebaty+2].attacked()
+                                    essai=True
+                                    if cases[casebatx][casebaty+2].bateau==False:
+                                        direction="haut"
+                                        
+                                elif cases[casebatx][casebaty+3].case_attaquee==False: #a revoir
+                                    cases[casebatx][casebaty+3].attacked()
+                                    essai=True
+                                    if cases[casebatx][casebaty+3].bateau==False:
+                                        direction="haut"
+                                        
+                                elif cases[casebatx][casebaty+4].case_attaquee==False: #a revoir
+                                    cases[casebatx][casebaty+4].attacked()
+                                    essai=True
+                                    if cases[casebatx][casebaty+4].bateau==False:
+                                        direction="haut"
+                                        
+
+                        except IndexError:
+                            pass
             
             if sens=="horizontal":
                 essai=False
@@ -396,23 +421,15 @@ class ai:
                                     if cases[casebatx-1][casebaty].case_attaquee==False: #a revoir
                                         cases[casebatx-1][casebaty].attacked()
                                         essai=True
-                                    else:
-                                        pass
-                                    if cases[casebatx-2][casebaty].case_attaquee==False: #a revoir
+                                    elif cases[casebatx-2][casebaty].case_attaquee==False: #a revoir
                                         cases[casebatx-2][casebaty].attacked()
                                         essai=True
-                                    else:
-                                        pass
-                                    if cases[casebatx-3][casebaty].case_attaquee==False: #a revoir
+                                    elif cases[casebatx-3][casebaty].case_attaquee==False: #a revoir
                                         cases[casebatx-3][casebaty].attacked()
                                         essai=True
-                                    else:
-                                        pass
-                                    if cases[casebatx-4][casebaty].case_attaquee==False: #a revoir
+                                    elif cases[casebatx-4][casebaty].case_attaquee==False: #a revoir
                                         cases[casebatx-4][casebaty].attacked()
                                         essai=True
-                                    else:
-                                        pass
                             else:
                                 if cases[casebatx+1][casebaty].case_attaquee==False: #a revoir
                                     cases[casebatx+1][casebaty].attacked()
@@ -420,19 +437,19 @@ class ai:
                                     if cases[casebatx+1][casebaty].bateau==False:
                                         direction="gauche"
                                         
-                                if cases[casebatx+2][casebaty].case_attaquee==False: #a revoir
+                                elif cases[casebatx+2][casebaty].case_attaquee==False: #a revoir
                                     cases[casebatx+2][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+2][casebaty].bateau==False:
                                         direction="gauche"
                                         
-                                if cases[casebatx+3][casebaty].case_attaquee==False: #a revoir
+                                elif cases[casebatx+3][casebaty].case_attaquee==False: #a revoir
                                     cases[casebatx+3][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+3][casebaty].bateau==False:
                                         direction="gauche"
                                         
-                                if cases[casebatx+4][casebaty].case_attaquee==False: #a revoir
+                                elif cases[casebatx+4][casebaty].case_attaquee==False: #a revoir
                                     cases[casebatx+4][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+4][casebaty].bateau==False:
@@ -446,6 +463,7 @@ class ai:
                 try:
                     essai=False
                     while essai==False:
+                        random=ranai()
                         if cases[casebatx+1][casebaty].case_attaquee==True and cases[casebatx-1][casebaty].case_attaquee==True and cases[casebatx][casebaty+1].case_attaquee==True and cases[casebatx][casebaty-1].case_attaquee==True:
                             essai=True
                             a,b=rancoord()
@@ -453,8 +471,7 @@ class ai:
                                 a,b=rancoord()
                                 cases[a][b].attacked()
                                 sens="none"
-                        random=ranai()
-                        if random==1:
+                        elif random==1:
                             if cases[casebatx+1][casebaty].case_attaquee==False:
                                 cases[casebatx+1][casebaty].attacked()
                                 if cases[casebatx+1][casebaty].bateau==True:
@@ -464,7 +481,7 @@ class ai:
                                 essai=True
                                 
                                 
-                        if random==2:
+                        elif random==2:
                             if cases[casebatx-1][casebaty].case_attaquee==False:
                                 cases[casebatx-1][casebaty].attacked()
                                 if cases[casebatx-1][casebaty].bateau==True:
@@ -472,7 +489,7 @@ class ai:
                                 else:
                                     sens="unknown"
                                 essai=True
-                        if random==3:
+                        elif random==3:
                             if cases[casebatx][casebaty+1].case_attaquee==False:
                                 cases[casebatx][casebaty+1].attacked()
                                 if cases[casebatx][casebaty+1].bateau==True:
@@ -480,7 +497,7 @@ class ai:
                                 else:
                                     sens="unknown"
                                 essai=True
-                        if random==4:
+                        elif random==4:
                             if cases[casebatx][casebaty-1].case_attaquee==False:
                                 cases[casebatx][casebaty-1].attacked()
                                 essai==True
@@ -489,6 +506,7 @@ class ai:
                                 else:
                                     sens="unknown"
                                 essai=True
+                                
                 except IndexError: 
                     pass
                 
