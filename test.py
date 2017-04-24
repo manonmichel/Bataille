@@ -281,6 +281,7 @@ class ai:
         
                 
 def aiattack():
+    time.sleep(0.5)
     global sens
     global direction
     global casebatx
@@ -431,13 +432,8 @@ def aiattack():
                         random=ranai()
                         if cases[casebatx+1][casebaty].case_attaquee==True and cases[casebatx-1][casebaty].case_attaquee==True and cases[casebatx][casebaty+1].case_attaquee==True and cases[casebatx][casebaty-1].case_attaquee==True:
                             essai=True
-                            a,b=rancoord()
-                            while cases[a][b].case_attaquee==True:
-                                a,b=rancoord()
-                                cases[a][b].attacked()
-                                sens="none"
-                                if cases[casebatx+1][casebaty].bateau==True:
-                                    aiattack()
+                            sens="none"
+                            aiattack()
                         elif random==1:
                             if cases[casebatx+1][casebaty].case_attaquee==False:
                                 cases[casebatx+1][casebaty].attacked()
