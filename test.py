@@ -302,6 +302,7 @@ def placeboatsai():
             ship.placement(x,y,caseadversaire)
 """            
             
+            
 def aiattack():
     time.sleep(0.3)
     global sens
@@ -449,14 +450,11 @@ def aiattack():
                                 
             if sens=="unknown":
                 try:
+                    
                     essai=False
                     while essai==False:
                         random=ranai()
-                        if cases[casebatx+1][casebaty].case_attaquee==True and cases[casebatx-1][casebaty].case_attaquee==True and cases[casebatx][casebaty+1].case_attaquee==True and cases[casebatx][casebaty-1].case_attaquee==True:
-                            essai=True
-                            sens="none"
-                            aiattack()
-                        elif random==1:
+                        if random==1:
                             if cases[casebatx+1][casebaty].case_attaquee==False:
                                 cases[casebatx+1][casebaty].attacked()
                                 if cases[casebatx+1][casebaty].bateau==True:
@@ -511,6 +509,7 @@ def aiattack():
                     aiattack()
         except IndexError:
             pass    
+        
     else:
         information.itemconfigure(1, text='It is your turn to play.')
 
