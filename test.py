@@ -579,8 +579,6 @@ nb_4=boatframe.create_text((l+290),(h+50), text='x 1')
 nb_3=boatframe.create_text((l+260),(h+120), text='x 2')
 nb_2=boatframe.create_text((l+230),(h+190), text='x 3')
  
-compteur_b3=0
-compteur_b2=0
 c_selected=0
    
 def clicked_b5(event):
