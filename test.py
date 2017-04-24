@@ -587,7 +587,7 @@ def clicked_b5(event):
     info()
     global compteur_b5
     if compteur_b5==0:
-        print('Tous les bateaux de cette categorie ont ete places')
+        information.itemconfigure(1, text='Tous les bateaux de cette categorie ont ete places')
     else:
         if selectable==True:
             selectable=False
@@ -606,7 +606,7 @@ def clicked_b4(event):
     info()
     global compteur_b4
     if compteur_b4==0:
-        print('Tous les bateaux de cette categorie ont ete places')
+        information.itemconfigure(1, text='Tous les bateaux de cette categorie ont ete places')
     else:
         if selectable==True:
             selectable=False
@@ -625,7 +625,7 @@ def clicked_b3(event):
     global compteur_b3
     info()
     if compteur_b3==0:
-        print('Tous les bateaux de cette categorie ont ete places')
+        information.itemconfigure(1, text='Tous les bateaux de cette categorie ont ete places')
     else:
         if selectable==True:
             print("Boat 3 selected")
@@ -648,7 +648,7 @@ def clicked_b2(event):
     global compteur_b2
     info()
     if compteur_b2==0:
-        print('Tous les bateaux de cette categorie ont ete places')
+        information.itemconfigure(1, text='Tous les bateaux de cette categorie ont ete places')
     else:
         if selectable==True:
             print("Boat 2 selected")
