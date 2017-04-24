@@ -284,11 +284,11 @@ class ai:
 def placeboatsai():
     global orientation
     global shipsai
-    listea=[5,4,3,3,2,2,2]
+    global caseadversaire
+    boatlengths=[5,4,3,3,2,2,2]
     x,y=rancoord()
-    
-    for i in range(len(listea)):
-        while listea[i].checkplacement(x,y)==False:
+    for i in range(len(boatlengths)):
+        while boatlengths[i].checkplacement(x,y)==False or shipsai[i].projection[i].check_surrounding()==False or shipsai[i].check_placement(self.x, self.y)==False:
             x,y=rancoord()
             random=ranai()
             if random==1:
@@ -299,8 +299,9 @@ def placeboatsai():
                 orientation="S"
             elif random==4:
                 orientation="W"
-            ship(listea[i],orientation)
-            ship.placement(x,y,caseadversaire)
+        shipsai.append(ship(boatlengths[i],orientation))        
+        shipsai[i].projet(x,y,caseadversaire)
+        ship.placement(x,y,caseadversaire)
 """            
             
             
