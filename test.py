@@ -288,21 +288,22 @@ def placeboatsai():
     boatlengths=[5,4,3,3,2,2,2]
     x,y=rancoord()
     for i in range(len(boatlengths)):
-        while shipsai[i].checkplacement(x,y)==False or shipsai[i].projection[i].check_surrounding()==False or shipsai[i].check_placement(x,y)==False:
-            x,y=rancoord()
-            random=ranai()
-            if random==1:
-                orientation="N"
-            elif random==2:
-                orientation="E"
-            elif random==3:
-                orientation="S"
-            elif random==4:
-                orientation="W"
-        shipsai.append(ship(boatlengths[i],orientation))        
+        random=ranai()
+        if random==1:
+            orientation="N"
+        elif random==2:
+            orientation="E"
+        elif random==3:
+            orientation="S"
+        elif random==4:
+            orientation="W"
+        shipsai.append(ship(boatlengths[i],orientation))  
+        
+    for i in range(len(shipsai)):
+        while shipsai[i].checkplacement(x,y)==False or shipsai[i].projection[i].check_surrounding()==False:
+            x,y=rancoord()       
         shipsai[i].projet(x,y,caseadversaire)
         ship.placement(x,y,caseadversaire)
-          
 """            
             
             
