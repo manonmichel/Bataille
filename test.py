@@ -12,6 +12,7 @@ direction="none"
 casebatx=0
 casebaty=0
 ships=[]
+shipsai[]
 #==============================================================================
 
 master = tk.Tk()
