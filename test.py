@@ -576,10 +576,12 @@ nb_2=boatframe.create_text((l+230),(h+190), text='x 3')
  
 compteur_b3=0
 compteur_b2=0
+c_selected=0
    
 def clicked_b5(event):
     global bl
     global selectable 
+    info()
     if selectable==True:
         selectable=False
         print("Boat 5 selected")
@@ -593,6 +595,7 @@ def clicked_b5(event):
 def clicked_b4(event):
     global bl
     global selectable 
+    info()
     if selectable==True:
         selectable=False
         print("Boat 4 selected")
@@ -606,6 +609,7 @@ def clicked_b3(event):
     global bl
     global selectable 
     global compteur_b3
+    info()
     if selectable==True:
         print("Boat 3 selected")
         selectable=False
@@ -624,6 +628,7 @@ def clicked_b2(event):
     global bl
     global selectable 
     global compteur_b2
+    info()
     if selectable==True:
         print("Boat 2 selected")
         selectable=False
@@ -675,6 +680,16 @@ master.bind('<Right>', rotate_west)
 
 #====================================================================
 
+#======================== Info box ==================================
+information=tk.Canvas(master, width=300, height=300)
+information.grid(column=1,row=0, sticky='S')
+
+info=information.create_text(150,20, text='Select boats above to begin.')
+
+def info():
+    if c_selected==0:
+        information.itemconfigure(1, text='Use arrow keys to modify the orientation of the boat. \n Place boats on the bottom grid, this one is yours.')
+#====================================================================
 def quel_bateau(case):
     for i in range(len(ships)):
         for j in range(len(ships[i].endroits)):
