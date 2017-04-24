@@ -281,7 +281,7 @@ class ai:
         
                 
 def aiattack():
-    time.sleep(0.5)
+    time.sleep(0.3)
     global sens
     global direction
     global casebatx
