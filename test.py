@@ -29,60 +29,7 @@ def gamemode():        #Seperates the moment of boat placement from the game pla
     cadre.configure(cursor='boat')
     master.configure(cursor='boat')
     boatframe.configure(cursor='boat')
-"""   
-class case:
-    def __init__(self, x, y):
-        self.x=x
-        self.y=y
-        self.bateau=False
-        self.case_attaquee=False        
-        self.xdebut=x*l
-        self.xfin=(x+1)*l
-        self.ydebut=y*(h/2)+hauteurcadre/2
-        self.yfin=y*(h/2)+(h/2)+hauteurcadre/2
-        self.draw()
-    def __repr__(self):
-        return str(self.x) + ','+str(self.y)
-    
-    def draw(self):
-        rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
-        if self.bateau==True and self.attacked==True:
-            cadre.create_line(self.xdebut,self.ydebut,self.xfin,self.yfin,fill="red") 
-            cadre.create_line(self.xdebut,self.yfin,self.xfin,self.ydebut,fill="red")
-        
-        cadre.tag_bind(rect, "<Button-1>", self.click)
 
-    def boat(self):
-        if self.bateau==False:
-            self.bateau=True
-            self.draw()
-        else:
-            self.bateau=False
-            self.draw()
-
-
-    def color(self):
-        couleur="white"
-        if self.bateau==True:
-            couleur="grey"
-        if self.case_attaquee and self.bateau:
-            couleur="red"
-        elif self.case_attaquee==True and self.bateau==False:
-            couleur="blue"
-        return couleur
-    
-    def attacked(self):
-        if self.case_attaquee==False:
-            self.case_attaquee=True
-            self.draw()
-        else:
-            self.case_attaquee=False
-            self.draw()
-    
-    def click(self, event):
-        self.boat()
-        print(self.case_attaquee and self.bateau)
-"""    
 class case:
     def __init__(self, x, y):
         self.x=x
@@ -256,40 +203,7 @@ class ship:
                 level=level+1
         return level/self.length
  
-"""
-def sens(event):
-    global ships
-    global orientation
-    if orientation=='N':
-        orientation='E'
-        print(orientation)
-    elif orientation=='E':
-        orientation='S'
-        print(orientation)
-    elif orientation=='S':
-        orientation='W'
-        print(orientation)
-    elif orientation=='W':
-        orientation='N'
-        print(orientation)                  
-                  
-"""
-"""
-def placer_boats(event):    #a mettre dans la classe boat
-    n=2
-    erreurplacement="placer le bateau en une ligne"
-    erreurnb="vous ne pouvez que placer tant de bateau"
-    if n==2:
-        for i in range (2):
-            return 
-    if n==3:
-        pass
-    if n==4:
-        pass
-    if n==5:
-        pass
-"""
-   
+
 def rancoord(): #renvoie 2 chiffres random
     a=random.randrange(0,9,1)
     b=random.randrange(0,9,1)
