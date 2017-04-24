@@ -279,7 +279,7 @@ class ai:
             couleur="blue"
             player_turn=False
         return couleur
-        
+"""        
 def placeboatsai():
     global orientation
     global shipsai
@@ -300,7 +300,7 @@ def placeboatsai():
                 orientation="W"
             ship(listea[i],orientation)
             ship.placement(x,y,caseadversaire)
-            
+"""            
             
 def aiattack():
     time.sleep(0.3)
