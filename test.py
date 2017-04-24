@@ -119,6 +119,7 @@ class case:
                     else:
                         bateau_selectionne.placement(self.x, self.y, cases)
                         selectable=True
+                        all_placed()
             else:   
                 if player_turn==True:
                     self.attacked()
@@ -719,6 +720,15 @@ def quel_bateau(case):
             print(ships[i].endroits[j])
             if ships[i].endroits[j]==case:
                 return i #ca te renvoie l'indice du bateau, genre cest le seul moyen de dire "quel bateau" cest
+            
+def all_placed():
+    if compteur_b5==0 and compteur_b4==0 and compteur_b3==0 and compteur_b2==0:
+        gamemode()
+        boatframe.destroy()
+        information.itemconfigure(1, text='It is your turn to play.')
+        return True
+    else:
+        return False
 """
 def changement(event):
     cases[0][0].boat()
