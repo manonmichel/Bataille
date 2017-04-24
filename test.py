@@ -280,7 +280,28 @@ class ai:
             player_turn=False
         return couleur
         
-                
+def placeboatsai():
+    global orientation
+    global shipsai
+    listea=[5,4,3,3,2,2,2]
+    x,y=rancoord()
+    
+    for i in range(len(listea)):
+        while listea[i].checkplacement(x,y)==False:
+            x,y=rancoord()
+            random=ranai()
+            if random==1:
+                orientation="N"
+            elif random==2:
+                orientation="E"
+            elif random==3:
+                orientation="S"
+            elif random==4:
+                orientation="W"
+            ship(listea[i],orientation)
+            ship.placement(x,y,caseadversaire)
+            
+            
 def aiattack():
     time.sleep(0.3)
     global sens
