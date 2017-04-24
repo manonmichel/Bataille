@@ -205,12 +205,12 @@ class ship:
  
 
 def rancoord(): #renvoie 2 chiffres random
-    a=random.randrange(0,9,1)
-    b=random.randrange(0,9,1)
+    a=random.randrange(0,10,1)
+    b=random.randrange(0,10,1)
     return a,b
                   
 def ranai():    #renvoie un chiffre random entre 1 et 4
-    return random.randrange(1,4,1)
+    return random.randrange(1,5,1)
                   
 def attacked_all(): #check si toutes les cases ont été attaqué
     for i in range(9):
