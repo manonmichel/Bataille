@@ -106,7 +106,7 @@ class case:
             if game_mode==False:
                 ships.append(ship(bl,orientation))
                 bateau_selectionne=ships[len(ships)-1]
-                bateau_selectionne.projet(self.x,self.y)
+                bateau_selectionne.projet(self.x, self.y, cases)
                 for i in range(len(bateau_selectionne.projection)):
                     print(bateau_selectionne.projection[i])
                     print(bateau_selectionne.projection[i].check_surrounding())
@@ -117,7 +117,7 @@ class case:
                     if bateau_selectionne.check_placement(self.x, self.y)==False:
                         information.itemconfigure(1, text='Boat out of area.')
                     else:
-                        bateau_selectionne.placement(self.x, self.y)
+                        bateau_selectionne.placement(self.x, self.y, cases)
                         selectable=True
             else:   
                 if player_turn==True:
@@ -177,34 +177,34 @@ class ship:
                 if x+self.length>10:
                     return False
         
-    def projet(self, x,y):
+    def projet(self, x,y, liste):
         for i in range(self.length):
             if self.orientation=='S':  
-                self.cases(self.projection,x,y+i)
+                self.cases(self.projection,x,y+i, liste)
             elif self.orientation=='E':
-                self.cases(self.projection,x-i,y)
+                self.cases(self.projection,x-i,y, liste)
             elif self.orientation=='N':
-                self.cases(self.projection,x,y-i)
+                self.cases(self.projection,x,y-i, liste)
             elif self.orientation=='W':
-                self.cases(self.projection,x+i,y)
+                self.cases(self.projection,x+i,y, liste)
                     
-    def placement(self,x,y):
+    def placement(self,x,y, liste):
         for i in range(self.length):
             if self.orientation=='S':  
-                cases[x][y+i].boat()  
-                self.cases(self.endroits,x,y+i)
+                liste[x][y+i].boat()  
+                self.cases(self.endroits,x,y+i, liste)
             elif self.orientation=='E':
-                cases[x-i][y].boat()
-                self.cases(self.endroits,x-i,y)
+                liste[x-i][y].boat()
+                self.cases(self.endroits,x-i,y, liste)
             elif self.orientation=='N':
-                cases[x][y-i].boat()
-                self.cases(self.endroits,x,y-i)
+                liste[x][y-i].boat()
+                self.cases(self.endroits,x,y-i, liste)
             elif self.orientation=='W':
-                cases[x+i][y].boat()
-                self.cases(self.endroits,x+i,y)
+                liste[x+i][y].boat()
+                self.cases(self.endroits,x+i,y, liste)
                     
-    def cases(self,liste,x,y):
-        liste.append(cases[x][y])
+    def cases(self,liste,x,y, liste2):
+        liste.append(liste2[x][y])
         
     def bateau_en_vie(self):
         level=0
@@ -228,6 +228,7 @@ def attacked_all(): #check si toutes les cases ont été attaqué
             if cases[i][j].case_attaquee==False:
                 return False
     return True
+"""
 class shipai:
     def __init__(self,l,orient):
         self.length=l
@@ -279,7 +280,8 @@ class shipai:
                     
     def cases(self,liste,x,y):
         liste.append(caseadversaire[x][y])
-
+"""
+        
 class ai:
     
     def __init__(self, x, y):
@@ -326,7 +328,7 @@ class ai:
         global orientation
         listea=[5,4,3,3,2,2,2]
         for i in range(len(listea)):
-            while shipai.checkplacement==False:
+            while ship.checkplacement==False:
                 random=ranai()
                 if random==1:
                     orientation="N"
@@ -336,7 +338,7 @@ class ai:
                     orientation="S"
                 elif random==4:
                     orientation="W"
-                shipai.placement(rancoord(),listea[i])
+                ship.placement(rancoord(),listea[i],caseadversaire)
                 
     if game_mode==True:
         placeboats()
