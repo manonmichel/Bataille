@@ -326,7 +326,7 @@ class ai:
         return couleur
         
                 
-    def aiattack(slef):
+    def aiattack():
         global sens
         global direction
         global casebatx
