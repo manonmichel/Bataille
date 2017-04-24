@@ -12,7 +12,7 @@ direction="none"
 casebatx=0
 casebaty=0
 ships=[]
-shipsai[]
+shipsai=[]
 #==============================================================================
 
 master = tk.Tk()
@@ -452,7 +452,6 @@ def aiattack():
                                 
             if sens=="unknown":
                 try:
-                    
                     essai=False
                     while essai==False:
                         random=ranai()
@@ -467,7 +466,7 @@ def aiattack():
                                 essai=True
                                     
                                     
-                        elif random==2:
+                        if random==2:
                             if cases[casebatx-1][casebaty].case_attaquee==False:
                                 cases[casebatx-1][casebaty].attacked()
                                 if cases[casebatx-1][casebaty].bateau==True:
@@ -476,7 +475,7 @@ def aiattack():
                                 else:
                                     sens="unknown"
                                 essai=True
-                        elif random==3:
+                        if random==3:
                             if cases[casebatx][casebaty+1].case_attaquee==False:    #probleme
                                 cases[casebatx][casebaty+1].attacked()
                                 if cases[casebatx][casebaty+1].bateau==True:
@@ -485,7 +484,7 @@ def aiattack():
                                 else:
                                     sens="unknown"
                                 essai=True
-                        elif random==4:
+                        if random==4:
                             if cases[casebatx][casebaty-1].case_attaquee==False:
                                 cases[casebatx][casebaty-1].attacked()
                                 essai==True
@@ -497,13 +496,13 @@ def aiattack():
                                 essai=True
                                     
                 except IndexError: 
-                    pass             
-            elif sens=="none":   
+                    pass   
+                
+            if sens=="none":   
                 a,b=rancoord()
                 while cases[a][b].case_attaquee==True:
                     a,b=rancoord()
                 cases[a][b].attacked()
-                essai=False         
                 if cases[a][b].bateau==True:
                     sens="unknown"
                     casebatx=a
