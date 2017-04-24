@@ -1,5 +1,6 @@
 import tkinter as tk
 import random
+import time
 #==============================================================================
 taillejeu="1080x1080"
 hauteurcadre=800
