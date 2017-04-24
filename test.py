@@ -569,6 +569,11 @@ b4=boatframe.create_polygon(b4_coord, fill="blue")
 b3=boatframe.create_polygon(b3_coord, fill="blue")
 b2=boatframe.create_polygon(b2_coord, fill="blue")
 
+compteur_b5=1
+compteur_b4=1
+compteur_b3=2
+compteur_b2=3
+
 nb_5=boatframe.create_text((l+320),(h-20), text='x 1')
 nb_4=boatframe.create_text((l+290),(h+50), text='x 1')
 nb_3=boatframe.create_text((l+260),(h+120), text='x 2')
@@ -582,70 +587,88 @@ def clicked_b5(event):
     global bl
     global selectable 
     info()
-    if selectable==True:
-        selectable=False
-        print("Boat 5 selected")
-        boatframe.itemconfigure(1, fill="grey")
-        rotate_north(event)
-        bl=5
-        boatframe.itemconfigure(5, text='x 0')
-    else: 
-        information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
+    global compteur_b5
+    if compteur_b5==0:
+        print('Tous les bateaux de cette categorie ont ete places')
+    else:
+        if selectable==True:
+            selectable=False
+            print("Boat 5 selected")
+            boatframe.itemconfigure(1, fill="grey")
+            rotate_north(event)
+            bl=5
+            compteur_b5=compteur_b5-1
+            boatframe.itemconfigure(5, text='x '+str(compteur_b5))
+        else:
+            information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
 
 def clicked_b4(event):
     global bl
     global selectable 
     info()
-    if selectable==True:
-        selectable=False
-        print("Boat 4 selected")
-        boatframe.itemconfigure(2, fill="grey")
-        rotate_north(event)
-        bl=4
-        boatframe.itemconfigure(6, text='x 0')
-    else: 
-        information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
+    global compteur_b4
+    if compteur_b4==0:
+        print('Tous les bateaux de cette categorie ont ete places')
+    else:
+        if selectable==True:
+            selectable=False
+            print("Boat 4 selected")
+            boatframe.itemconfigure(2, fill="grey")
+            rotate_north(event)
+            bl=4
+            compteur_b4=compteur_b4-1
+            boatframe.itemconfigure(6, text='x '+str(compteur_b4))
+        else:
+            information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
+            
 def clicked_b3(event):
     global bl
     global selectable 
     global compteur_b3
     info()
-    if selectable==True:
-        print("Boat 3 selected")
-        selectable=False
-        if compteur_b3==0: 
-            boatframe.itemconfigure(3, fill='#A9CCE3')
-            boatframe.itemconfigure(7, text='x 1')
-        elif compteur_b3==1:
-            boatframe.itemconfigure(3, fill='grey')
-            boatframe.itemconfigure(7, text='x 0')
-        rotate_north(event)
-        bl=3    
-        compteur_b3=compteur_b3+1
-    else: 
-        information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
+    if compteur_b3==0:
+        print('Tous les bateaux de cette categorie ont ete places')
+    else:
+        if selectable==True:
+            print("Boat 3 selected")
+            selectable=False
+            if compteur_b3==2: 
+                boatframe.itemconfigure(3, fill='#A9CCE3')
+                boatframe.itemconfigure(7, text='x 1')
+            elif compteur_b3==1:
+                boatframe.itemconfigure(3, fill='grey')
+                boatframe.itemconfigure(7, text='x 0')
+            rotate_north(event)
+            bl=3    
+            compteur_b3=compteur_b3-1
+        else: 
+            information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
+            
 def clicked_b2(event):
     global bl
     global selectable 
     global compteur_b2
     info()
-    if selectable==True:
-        print("Boat 2 selected")
-        selectable=False
-        if compteur_b2==0: 
-            boatframe.itemconfigure(4, fill='#5DADE2')
-            boatframe.itemconfigure(8, text='x 2')
-        elif compteur_b2==1:
-            boatframe.itemconfigure(4, fill='#A9CCE3')
-            boatframe.itemconfigure(8, text='x 1')
-        elif compteur_b2==2:
-            boatframe.itemconfigure(4, fill='grey')
-            boatframe.itemconfigure(8, text='x 0')        
-        rotate_north(event)
-        bl=2    
-        compteur_b2=compteur_b2+1
-    else: 
-        information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
+    if compteur_b2==0:
+        print('Tous les bateaux de cette categorie ont ete places')
+    else:
+        if selectable==True:
+            print("Boat 2 selected")
+            selectable=False
+            if compteur_b2==3: 
+                boatframe.itemconfigure(4, fill='#5DADE2')
+                boatframe.itemconfigure(8, text='x 2')
+            elif compteur_b2==2:
+                boatframe.itemconfigure(4, fill='#A9CCE3')
+                boatframe.itemconfigure(8, text='x 1')
+            elif compteur_b2==1:
+                boatframe.itemconfigure(4, fill='grey')
+                boatframe.itemconfigure(8, text='x 0')        
+            rotate_north(event)
+            bl=2    
+            compteur_b2=compteur_b2-1
+        else: 
+            information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
             
 
 def rotate_north(event): #Default orientation
