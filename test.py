@@ -364,41 +364,41 @@ class ai:
                 else:
                     while essai==False:
                         try:
-                            if direction=="bas":
-                                while essai==True:
-                                    if cases[casebatx][casebaty-1].case_attaquee==False: #a revoir
+                            if direction=="haut":
+                                while essai==False:
+                                    if cases[casebatx][casebaty-1].case_attaquee==False: 
                                         cases[casebatx][casebaty-1].attacked()
                                         essai=True
-                                    elif cases[casebatx][casebaty-2].case_attaquee==False: #a revoir
+                                    elif cases[casebatx][casebaty-2].case_attaquee==False:
                                         cases[casebatx][casebaty-2].attacked()
                                         essai=True
-                                    elif cases[casebatx][casebaty-3].case_attaquee==False: #a revoir
+                                    elif cases[casebatx][casebaty-3].case_attaquee==False: 
                                         cases[casebatx][casebaty-3].attacked()
                                         essai=True
-                                    elif cases[casebatx][casebaty-4].case_attaquee==False: #a revoir
+                                    elif cases[casebatx][casebaty-4].case_attaquee==False: 
                                         cases[casebatx][casebaty-4].attacked()
                                         essai=True
 
                             else:
-                                if cases[casebatx][casebaty+1].case_attaquee==False: #a revoir
+                                if cases[casebatx][casebaty+1].case_attaquee==False: 
                                     cases[casebatx][casebaty+1].attacked()
                                     essai=True
                                     if cases[casebatx][casebaty+1].bateau==False:
                                         direction="haut"
                                         
-                                elif cases[casebatx][casebaty+2].case_attaquee==False: #a revoir
+                                elif cases[casebatx][casebaty+2].case_attaquee==False: 
                                     cases[casebatx][casebaty+2].attacked()
                                     essai=True
                                     if cases[casebatx][casebaty+2].bateau==False:
                                         direction="haut"
                                         
-                                elif cases[casebatx][casebaty+3].case_attaquee==False: #a revoir
+                                elif cases[casebatx][casebaty+3].case_attaquee==False:
                                     cases[casebatx][casebaty+3].attacked()
                                     essai=True
                                     if cases[casebatx][casebaty+3].bateau==False:
                                         direction="haut"
                                         
-                                elif cases[casebatx][casebaty+4].case_attaquee==False: #a revoir
+                                elif cases[casebatx][casebaty+4].case_attaquee==False:
                                     cases[casebatx][casebaty+4].attacked()
                                     essai=True
                                     if cases[casebatx][casebaty+4].bateau==False:
@@ -417,39 +417,39 @@ class ai:
                     while essai==False:
                         try:
                             if direction=="gauche":
-                                while essai==True:
-                                    if cases[casebatx-1][casebaty].case_attaquee==False: #a revoir
+                                while essai==False:
+                                    if cases[casebatx-1][casebaty].case_attaquee==False:
                                         cases[casebatx-1][casebaty].attacked()
                                         essai=True
-                                    elif cases[casebatx-2][casebaty].case_attaquee==False: #a revoir
+                                    elif cases[casebatx-2][casebaty].case_attaquee==False: 
                                         cases[casebatx-2][casebaty].attacked()
                                         essai=True
-                                    elif cases[casebatx-3][casebaty].case_attaquee==False: #a revoir
+                                    elif cases[casebatx-3][casebaty].case_attaquee==False: 
                                         cases[casebatx-3][casebaty].attacked()
                                         essai=True
-                                    elif cases[casebatx-4][casebaty].case_attaquee==False: #a revoir
+                                    elif cases[casebatx-4][casebaty].case_attaquee==False:
                                         cases[casebatx-4][casebaty].attacked()
                                         essai=True
                             else:
-                                if cases[casebatx+1][casebaty].case_attaquee==False: #a revoir
+                                if cases[casebatx+1][casebaty].case_attaquee==False: 
                                     cases[casebatx+1][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+1][casebaty].bateau==False:
                                         direction="gauche"
                                         
-                                elif cases[casebatx+2][casebaty].case_attaquee==False: #a revoir
+                                elif cases[casebatx+2][casebaty].case_attaquee==False:
                                     cases[casebatx+2][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+2][casebaty].bateau==False:
                                         direction="gauche"
                                         
-                                elif cases[casebatx+3][casebaty].case_attaquee==False: #a revoir
+                                elif cases[casebatx+3][casebaty].case_attaquee==False:
                                     cases[casebatx+3][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+3][casebaty].bateau==False:
                                         direction="gauche"
                                         
-                                elif cases[casebatx+4][casebaty].case_attaquee==False: #a revoir
+                                elif cases[casebatx+4][casebaty].case_attaquee==False: 
                                     cases[casebatx+4][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+4][casebaty].bateau==False:
@@ -490,7 +490,7 @@ class ai:
                                     sens="unknown"
                                 essai=True
                         elif random==3:
-                            if cases[casebatx][casebaty+1].case_attaquee==False:
+                            if cases[casebatx][casebaty+1].case_attaquee==False:    #probleme
                                 cases[casebatx][casebaty+1].attacked()
                                 if cases[casebatx][casebaty+1].bateau==True:
                                     sens="vertical"
