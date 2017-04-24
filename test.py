@@ -309,8 +309,14 @@ class ai:
         cadre.tag_bind(rect, "<Button-1>", self.click)
         
     def click(self, event):
-        case.attacked(self)
-        print(self.case_attaquee and self.bateau)
+        global player_turn
+        if player_turn==True:
+            case.attacked(self)
+            print(self.case_attaquee and self.bateau)
+            player_turn=False
+            information.itemconfigure(1, text='It is not your turn to play.')
+        else:
+            information.itemconfigure(1, text='It is not your turn to play.')
         
     def color(self):
         global player_turn 
