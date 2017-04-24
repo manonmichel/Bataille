@@ -111,11 +111,11 @@ class case:
                     print(bateau_selectionne.projection[i])
                     print(bateau_selectionne.projection[i].check_surrounding())
                     if bateau_selectionne.projection[i].check_surrounding()==False:
-                        print('Boats can not be adjacent.')
+                        information.itemconfigure(1, text='Boats can not be adjacent.')
                         environs=False
                 if environs==True:
                     if bateau_selectionne.check_placement(self.x, self.y)==False:
-                        print('Boat out of area.')
+                        information.itemconfigure(1, text='Boat out of area.')
                     else:
                         bateau_selectionne.placement(self.x, self.y)
                         selectable=True
@@ -124,9 +124,9 @@ class case:
                     self.attacked()
                     print(self.case_attaquee and self.bateau)
                 else:
-                    print('It is not your turn to play.')
+                    information.itemconfigure(1, text='It is not your turn to play.')
         else:
-             print('Please select a boat to place.')
+             information.itemconfigure(1, text='Please select a boat to place.')
          
     def check_self(self):
         if self.bateau==True:
@@ -524,7 +524,7 @@ class ai:
                 pass    
         
         else:
-            print('It is your turn to play.')
+            information.itemconfigure(1, text='It is your turn to play.')
 
 
 caseadversaire=[]
@@ -590,7 +590,7 @@ def clicked_b5(event):
         bl=5
         boatframe.itemconfigure(5, text='x 0')
     else: 
-        print("Veuillez placer le bateau avant de selectionner un autre.")
+        information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
 
 def clicked_b4(event):
     global bl
@@ -604,7 +604,7 @@ def clicked_b4(event):
         bl=4
         boatframe.itemconfigure(6, text='x 0')
     else: 
-        print("Veuillez placer le bateau avant de selectionner un autre.")
+        information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
 def clicked_b3(event):
     global bl
     global selectable 
@@ -623,7 +623,7 @@ def clicked_b3(event):
         bl=3    
         compteur_b3=compteur_b3+1
     else: 
-        print("Veuillez placer le bateau avant de selectionner un autre.")
+        information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
 def clicked_b2(event):
     global bl
     global selectable 
@@ -645,7 +645,7 @@ def clicked_b2(event):
         bl=2    
         compteur_b2=compteur_b2+1
     else: 
-        print("Veuillez placer le bateau avant de selectionner un autre.")
+        information.itemconfigure(1, text="Veuillez placer le bateau avant de selectionner un autre.")
             
 
 def rotate_north(event): #Default orientation
