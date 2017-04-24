@@ -230,59 +230,7 @@ def attacked_all(): #check si toutes les cases ont été attaqué
             if cases[i][j].case_attaquee==False:
                 return False
     return True
-"""
-class shipai:
-    def __init__(self,l,orient):
-        self.length=l
-        self.orientation=orient
-        self.endroits=[]
-        self.projection=[]
-    def __repr__(self):
-        return str(self.length)
-    
-    def check_placement(self, x, y):
-        if self.orientation=='S':  #vérifie que le bateau rentre dans le cadre
-            if y+self.length>10:
-                return False
-        elif self.orientation=='E':
-            if x-self.length<-1:
-                return False
-        elif self.orientation=='N':
-            if y-self.length<-1:
-                return False
-        elif self.orientation=='W':
-                if x+self.length>10:
-                    return False
-        
-    def projet(self, x,y):
-        for i in range(self.length):
-            if self.orientation=='S':  
-                self.case(self.projection,x,y+i)
-            elif self.orientation=='E':
-                self.cases(self.projection,x-i,y)
-            elif self.orientation=='N':
-                self.cases(self.projection,x,y-i)
-            elif self.orientation=='W':
-                self.cases(self.projection,x+i,y)
-                    
-    def placement(self,x,y):
-        for i in range(self.length):
-            if self.orientation=='S':  
-                caseadversaire[x][y+i].boat()  
-                self.cases(self.endroits,x,y+i)
-            elif self.orientation=='E':
-                caseadversaire[x-i][y].boat()
-                self.cases(self.endroits,x-i,y)
-            elif self.orientation=='N':
-                caseadversaire[x][y-i].boat()
-                self.cases(self.endroits,x,y-i)
-            elif self.orientation=='W':
-                caseadversaire[x+i][y].boat()
-                self.cases(self.endroits,x+i,y)
-                    
-    def cases(self,liste,x,y):
-        liste.append(caseadversaire[x][y])
-"""
+
         
 class ai:
     
