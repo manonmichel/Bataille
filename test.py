@@ -311,17 +311,19 @@ class ai:
     def placeboats():
         global ships
         global orientation
-        while shipai.checkplacement==False:
-            random=ranai()
-            if random==1:
-                orientation="N"
-            elif random==2:
-                orientation="E"
-            elif random==3:
-                orientation="S"
-            elif random==4:
-                orientation="W"
-            shipai.placement(rancoord())
+        listea=[5,4,3,3,2,2,2]
+        for i in range(len(listea)):
+            while shipai.checkplacement==False:
+                random=ranai()
+                if random==1:
+                    orientation="N"
+                elif random==2:
+                    orientation="E"
+                elif random==3:
+                    orientation="S"
+                elif random==4:
+                    orientation="W"
+                shipai.placement(rancoord(),listea[i])
             
     def aiattack():
         global sens
