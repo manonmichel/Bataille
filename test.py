@@ -22,13 +22,16 @@ cadre.grid(column=0, row=0)
 
 orientation='N'#ffaudra voir si on le fait rester à ce que cest ou si on le fait revenir a N
 game_mode=False
+player_turn=False  #Variable boouléenne qui vérifie que assure le respect du tour de jeu 
 
 def gamemode():        #Seperates the moment of boat placement from the game play
     global game_mode
+    global player_turn
     game_mode=True
     cadre.configure(cursor='boat')
     master.configure(cursor='boat')
     boatframe.configure(cursor='boat')
+    player_turn=True
 
 class case:
     def __init__(self, x, y):
@@ -58,14 +61,18 @@ class case:
         else:
             self.bateau=False
             self.draw()
+        
     def color(self):
+        global player_turn
         couleur="white"
         if self.bateau==True:
             couleur="grey"
         if self.case_attaquee and self.bateau:
             couleur="red"
+            player_turn=False
         elif self.case_attaquee==True and self.bateau==False:
             couleur="blue"
+            player_turn=True
         return couleur
     
     def attacked(self):
@@ -113,8 +120,11 @@ class case:
                         bateau_selectionne.placement(self.x, self.y)
                         selectable=True
             else:   
-                self.attacked()
-                print(self.case_attaquee and self.bateau)
+                if player_turn==True:
+                    self.attacked()
+                    print(self.case_attaquee and self.bateau)
+                else:
+                    print('It is not your turn to play.')
         else:
              print('Please select a boat to place.')
          
@@ -244,7 +254,7 @@ class shipai:
     def projet(self, x,y):
         for i in range(self.length):
             if self.orientation=='S':  
-                self.cases(self.projection,x,y+i)
+                self.case(self.projection,x,y+i)
             elif self.orientation=='E':
                 self.cases(self.projection,x-i,y)
             elif self.orientation=='N':
@@ -299,13 +309,16 @@ class ai:
         print(self.case_attaquee and self.bateau)
         
     def color(self):
+        global player_turn 
         couleur="white"
         if self.bateau==True:
             couleur="grey"
         if self.case_attaquee and self.bateau:
             couleur="red"
+            player_turn=True
         elif self.case_attaquee==True and self.bateau==False:
             couleur="blue"
+            player_turn=False
         return couleur
         
     def placeboats():
@@ -324,7 +337,10 @@ class ai:
                 elif random==4:
                     orientation="W"
                 shipai.placement(rancoord(),listea[i])
-            
+                
+    if game_mode==True:
+        placeboats()
+                
     def aiattack():
         global sens
         global direction
@@ -335,178 +351,180 @@ class ai:
         print(sens)
         if attacked_all()== True:
             return False
-            
-        try:    
-            if sens=="vertical":
-                essai=False
-                if ships[quel_bateau(cases[casebatx][casebaty])].bateau_en_vie()== 0:
-                    sens="none"
-                    direction="none"
-                else:
-                    while essai==False:
-                        try:
-                            if direction=="haut":
-                                while essai==False:
-                                    if cases[casebatx][casebaty-1].case_attaquee==False: 
-                                        cases[casebatx][casebaty-1].attacked()
-                                        essai=True
-                                    elif cases[casebatx][casebaty-2].case_attaquee==False:
-                                        cases[casebatx][casebaty-2].attacked()
-                                        essai=True
-                                    elif cases[casebatx][casebaty-3].case_attaquee==False: 
-                                        cases[casebatx][casebaty-3].attacked()
-                                        essai=True
-                                    elif cases[casebatx][casebaty-4].case_attaquee==False: 
-                                        cases[casebatx][casebaty-4].attacked()
-                                        essai=True
-
-                            else:
-                                if cases[casebatx][casebaty+1].case_attaquee==False: 
-                                    cases[casebatx][casebaty+1].attacked()
-                                    essai=True
-                                    if cases[casebatx][casebaty+1].bateau==False:
-                                        direction="haut"
-                                        
-                                elif cases[casebatx][casebaty+2].case_attaquee==False: 
-                                    cases[casebatx][casebaty+2].attacked()
-                                    essai=True
-                                    if cases[casebatx][casebaty+2].bateau==False:
-                                        direction="haut"
-                                        
-                                elif cases[casebatx][casebaty+3].case_attaquee==False:
-                                    cases[casebatx][casebaty+3].attacked()
-                                    essai=True
-                                    if cases[casebatx][casebaty+3].bateau==False:
-                                        direction="haut"
-                                        
-                                elif cases[casebatx][casebaty+4].case_attaquee==False:
-                                    cases[casebatx][casebaty+4].attacked()
-                                    essai=True
-                                    if cases[casebatx][casebaty+4].bateau==False:
-                                        direction="haut"
-                                        
-
-                        except IndexError:
-                            pass
-            
-            if sens=="horizontal":
-                essai=False
-                if ships[quel_bateau(cases[casebatx][casebaty])].bateau_en_vie()== 0:
-                    sens="none"
-                    direction="none"
-                else:
-                    while essai==False:
-                        try:
-                            if direction=="gauche":
-                                while essai==False:
-                                    if cases[casebatx-1][casebaty].case_attaquee==False:
-                                        cases[casebatx-1][casebaty].attacked()
-                                        essai=True
-                                    elif cases[casebatx-2][casebaty].case_attaquee==False: 
-                                        cases[casebatx-2][casebaty].attacked()
-                                        essai=True
-                                    elif cases[casebatx-3][casebaty].case_attaquee==False: 
-                                        cases[casebatx-3][casebaty].attacked()
-                                        essai=True
-                                    elif cases[casebatx-4][casebaty].case_attaquee==False:
-                                        cases[casebatx-4][casebaty].attacked()
-                                        essai=True
-                            else:
-                                if cases[casebatx+1][casebaty].case_attaquee==False: 
-                                    cases[casebatx+1][casebaty].attacked()
-                                    essai=True
-                                    if cases[casebatx+1][casebaty].bateau==False:
-                                        direction="gauche"
-                                        
-                                elif cases[casebatx+2][casebaty].case_attaquee==False:
-                                    cases[casebatx+2][casebaty].attacked()
-                                    essai=True
-                                    if cases[casebatx+2][casebaty].bateau==False:
-                                        direction="gauche"
-                                        
-                                elif cases[casebatx+3][casebaty].case_attaquee==False:
-                                    cases[casebatx+3][casebaty].attacked()
-                                    essai=True
-                                    if cases[casebatx+3][casebaty].bateau==False:
-                                        direction="gauche"
-                                        
-                                elif cases[casebatx+4][casebaty].case_attaquee==False: 
-                                    cases[casebatx+4][casebaty].attacked()
-                                    essai=True
-                                    if cases[casebatx+4][casebaty].bateau==False:
-                                        direction="gauche"
-                                        
-
-                        except IndexError:
-                            pass
-                            
-            if sens=="unknown":
-                try:
+        
+        if player_turn==False and game_mode==True:    
+            try:    
+                if sens=="vertical":
                     essai=False
-                    while essai==False:
-                        random=ranai()
-                        if cases[casebatx+1][casebaty].case_attaquee==True and cases[casebatx-1][casebaty].case_attaquee==True and cases[casebatx][casebaty+1].case_attaquee==True and cases[casebatx][casebaty-1].case_attaquee==True:
-                            essai=True
-                            a,b=rancoord()
-                            while cases[a][b].case_attaquee==True:
-                                a,b=rancoord()
-                                cases[a][b].attacked()
-                                sens="none"
-                        elif random==1:
-                            if cases[casebatx+1][casebaty].case_attaquee==False:
-                                cases[casebatx+1][casebaty].attacked()
-                                if cases[casebatx+1][casebaty].bateau==True:
-                                    sens="horizontal"
+                    if ships[quel_bateau(cases[casebatx][casebaty])].bateau_en_vie()== 0:
+                        sens="none"
+                        direction="none"
+                    else:
+                        while essai==False:
+                            try:
+                                if direction=="haut":
+                                    while essai==False:
+                                        if cases[casebatx][casebaty-1].case_attaquee==False: 
+                                            cases[casebatx][casebaty-1].attacked()
+                                            essai=True
+                                        elif cases[casebatx][casebaty-2].case_attaquee==False:
+                                            cases[casebatx][casebaty-2].attacked()
+                                            essai=True
+                                        elif cases[casebatx][casebaty-3].case_attaquee==False: 
+                                            cases[casebatx][casebaty-3].attacked()
+                                            essai=True
+                                        elif cases[casebatx][casebaty-4].case_attaquee==False: 
+                                            cases[casebatx][casebaty-4].attacked()
+                                            essai=True
+    
                                 else:
-                                    sens="unknown"
-                                essai=True
-                                
-                                
-                        elif random==2:
-                            if cases[casebatx-1][casebaty].case_attaquee==False:
-                                cases[casebatx-1][casebaty].attacked()
-                                if cases[casebatx-1][casebaty].bateau==True:
-                                    sens="horizontal"
-                                else:
-                                    sens="unknown"
-                                essai=True
-                        elif random==3:
-                            if cases[casebatx][casebaty+1].case_attaquee==False:    #probleme
-                                cases[casebatx][casebaty+1].attacked()
-                                if cases[casebatx][casebaty+1].bateau==True:
-                                    sens="vertical"
-                                else:
-                                    sens="unknown"
-                                essai=True
-                        elif random==4:
-                            if cases[casebatx][casebaty-1].case_attaquee==False:
-                                cases[casebatx][casebaty-1].attacked()
-                                essai==True
-                                if cases[casebatx][casebaty-1].bateau==True:
-                                    sens="vertical"
-                                else:
-                                    sens="unknown"
-                                essai=True
-                                
-                except IndexError: 
-                    pass
+                                    if cases[casebatx][casebaty+1].case_attaquee==False: 
+                                        cases[casebatx][casebaty+1].attacked()
+                                        essai=True
+                                        if cases[casebatx][casebaty+1].bateau==False:
+                                            direction="haut"
+                                            
+                                    elif cases[casebatx][casebaty+2].case_attaquee==False: 
+                                        cases[casebatx][casebaty+2].attacked()
+                                        essai=True
+                                        if cases[casebatx][casebaty+2].bateau==False:
+                                            direction="haut"
+                                            
+                                    elif cases[casebatx][casebaty+3].case_attaquee==False:
+                                        cases[casebatx][casebaty+3].attacked()
+                                        essai=True
+                                        if cases[casebatx][casebaty+3].bateau==False:
+                                            direction="haut"
+                                            
+                                    elif cases[casebatx][casebaty+4].case_attaquee==False:
+                                        cases[casebatx][casebaty+4].attacked()
+                                        essai=True
+                                        if cases[casebatx][casebaty+4].bateau==False:
+                                            direction="haut"
+                                            
+    
+                            except IndexError:
+                                pass
                 
-            elif sens=="none":   
-                a,b=rancoord()
-                while cases[a][b].case_attaquee==True:
+                if sens=="horizontal":
+                    essai=False
+                    if ships[quel_bateau(cases[casebatx][casebaty])].bateau_en_vie()== 0:
+                        sens="none"
+                        direction="none"
+                    else:
+                        while essai==False:
+                            try:
+                                if direction=="gauche":
+                                    while essai==False:
+                                        if cases[casebatx-1][casebaty].case_attaquee==False:
+                                            cases[casebatx-1][casebaty].attacked()
+                                            essai=True
+                                        elif cases[casebatx-2][casebaty].case_attaquee==False: 
+                                            cases[casebatx-2][casebaty].attacked()
+                                            essai=True
+                                        elif cases[casebatx-3][casebaty].case_attaquee==False: 
+                                            cases[casebatx-3][casebaty].attacked()
+                                            essai=True
+                                        elif cases[casebatx-4][casebaty].case_attaquee==False:
+                                            cases[casebatx-4][casebaty].attacked()
+                                            essai=True
+                                else:
+                                    if cases[casebatx+1][casebaty].case_attaquee==False: 
+                                        cases[casebatx+1][casebaty].attacked()
+                                        essai=True
+                                        if cases[casebatx+1][casebaty].bateau==False:
+                                            direction="gauche"
+                                            
+                                    elif cases[casebatx+2][casebaty].case_attaquee==False:
+                                        cases[casebatx+2][casebaty].attacked()
+                                        essai=True
+                                        if cases[casebatx+2][casebaty].bateau==False:
+                                            direction="gauche"
+                                            
+                                    elif cases[casebatx+3][casebaty].case_attaquee==False:
+                                        cases[casebatx+3][casebaty].attacked()
+                                        essai=True
+                                        if cases[casebatx+3][casebaty].bateau==False:
+                                            direction="gauche"
+                                            
+                                    elif cases[casebatx+4][casebaty].case_attaquee==False: 
+                                        cases[casebatx+4][casebaty].attacked()
+                                        essai=True
+                                        if cases[casebatx+4][casebaty].bateau==False:
+                                            direction="gauche"
+                                            
+    
+                            except IndexError:
+                                pass
+                                
+                if sens=="unknown":
+                    try:
+                        essai=False
+                        while essai==False:
+                            random=ranai()
+                            if cases[casebatx+1][casebaty].case_attaquee==True and cases[casebatx-1][casebaty].case_attaquee==True and cases[casebatx][casebaty+1].case_attaquee==True and cases[casebatx][casebaty-1].case_attaquee==True:
+                                essai=True
+                                a,b=rancoord()
+                                while cases[a][b].case_attaquee==True:
+                                    a,b=rancoord()
+                                    cases[a][b].attacked()
+                                    sens="none"
+                            elif random==1:
+                                if cases[casebatx+1][casebaty].case_attaquee==False:
+                                    cases[casebatx+1][casebaty].attacked()
+                                    if cases[casebatx+1][casebaty].bateau==True:
+                                        sens="horizontal"
+                                    else:
+                                        sens="unknown"
+                                    essai=True
+                                    
+                                    
+                            elif random==2:
+                                if cases[casebatx-1][casebaty].case_attaquee==False:
+                                    cases[casebatx-1][casebaty].attacked()
+                                    if cases[casebatx-1][casebaty].bateau==True:
+                                        sens="horizontal"
+                                    else:
+                                        sens="unknown"
+                                    essai=True
+                            elif random==3:
+                                if cases[casebatx][casebaty+1].case_attaquee==False:    #probleme
+                                    cases[casebatx][casebaty+1].attacked()
+                                    if cases[casebatx][casebaty+1].bateau==True:
+                                        sens="vertical"
+                                    else:
+                                        sens="unknown"
+                                    essai=True
+                            elif random==4:
+                                if cases[casebatx][casebaty-1].case_attaquee==False:
+                                    cases[casebatx][casebaty-1].attacked()
+                                    essai==True
+                                    if cases[casebatx][casebaty-1].bateau==True:
+                                        sens="vertical"
+                                    else:
+                                        sens="unknown"
+                                    essai=True
+                                    
+                    except IndexError: 
+                        pass
+                    
+                elif sens=="none":   
                     a,b=rancoord()
-                cases[a][b].attacked()
-                essai=False
-            
-                if cases[a][b].bateau==True:
-                    sens="unknown"
-                    casebatx=a
-                    casebaty=b
-                        
-        except IndexError:
-            pass    
+                    while cases[a][b].case_attaquee==True:
+                        a,b=rancoord()
+                    cases[a][b].attacked()
+                    essai=False
+                
+                    if cases[a][b].bateau==True:
+                        sens="unknown"
+                        casebatx=a
+                        casebaty=b
+                            
+            except IndexError:
+                pass    
         
-        
+        else:
+            print('It is your turn to play.')
 
 
 caseadversaire=[]
@@ -654,10 +672,9 @@ master.bind('<Left>', rotate_east)
 master.bind('<Up>', rotate_north)
 master.bind('<Down>', rotate_south)
 master.bind('<Right>', rotate_west)
-    
-
 
 #====================================================================
+
 def quel_bateau(case):
     for i in range(len(ships)):
         for j in range(len(ships[i].endroits)):
