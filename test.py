@@ -32,7 +32,6 @@ def gamemode():        #Seperates the moment of boat placement from the game pla
     master.configure(cursor='boat')
     boatframe.configure(cursor='boat')
     player_turn=True
-    placeboats()
 
 class case:
     def __init__(self, x, y):
@@ -704,7 +703,7 @@ def changement(event):
 master.bind("<Button-1>", changement)
 """
 #Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
-ai = tk.Button(master, text = 'ai', command = ai.aiattack).grid(row=0, column=1)
-play=tk.Button(master, text="Jouer", width="10", height="2", command=gamemode).grid(column=2, row=0)
+ai = tk.Button(master, text = 'ai', command = aiattack).grid(row=0, column=1)
+#play=tk.Button(master, text="Jouer", width="10", height="2", command=gamemode).grid(column=2, row=0)
 
 master.mainloop()
