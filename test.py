@@ -249,6 +249,39 @@ class ai:
     def __repr__(self):
         return str(self.x) + ','+str(self.y)
         
+    def boat(self):
+        if self.bateau==False:
+            self.bateau=True
+            self.draw()
+        else:
+            self.bateau=False
+            self.draw()
+            
+    def attacked(self):
+        if self.case_attaquee==False:
+            self.case_attaquee=True
+            self.draw()
+        else:
+            self.case_attaquee=False
+            self.draw()
+            
+            
+    def check_surrounding(self): #check s'il n'y a pas de bateau autour
+        xcoordinate=[-1,0,0,+1]
+        ycoordinate=[0,+1,-1,0]
+        for i in range(4):
+            try:
+                adjacent_case=caseadversaire[(self.x+xcoordinate[i])][self.y+(ycoordinate[i])]
+                if adjacent_case.bateau==True:
+                    return False
+            except:
+                    IndexError
+        return True
+                
+                 
+    def checks(self):
+        return self.check_self() and self.check_surrounding()
+            
     def draw(self):
         rect=cadre.create_rectangle(self.xdebut,self.ydebut,self.xfin,self.yfin, fill=self.color())
         if self.bateau==True and self.attacked==True:
@@ -280,7 +313,7 @@ class ai:
             couleur="blue"
             player_turn=False
         return couleur
-    
+  
 def placeboatsai():
     global orientation
     global shipsai
@@ -304,7 +337,8 @@ def placeboatsai():
         shipsai[j].placement(x,y,caseadversaire)
         shipsai[j].projet(x,y,caseadversaire)
 
-        
+          
+            
             
 def aiattack():
     time.sleep(0.3)
@@ -724,5 +758,5 @@ master.bind("<Button-1>", changement)
 #Bouton2 = tk.Button(master, text = 'Placer bateau2', command = placer_boats).grid(row=2, column=1)
 ai = tk.Button(master, text = 'ai', command = aiattack).grid(row=0, column=1)
 #play=tk.Button(master, text="Jouer", width="10", height="2", command=gamemode).grid(column=2, row=0)
-
+placeboatsai()
 master.mainloop()
