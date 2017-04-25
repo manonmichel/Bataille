@@ -280,7 +280,8 @@ class ai:
             couleur="blue"
             player_turn=False
         return couleur
-"""        
+    
+    
 def placeboatsai():
     global orientation
     global shipsai
@@ -297,15 +298,12 @@ def placeboatsai():
             orientation="S"
         elif random==4:
             orientation="W"
-        shipsai.append(ship(boatlengths[i],orientation))  
- 
-    for i in range(len(shipsai)):
-        while shipsai[i].check_placement(x,y)==False or shipsai[i].projection[i].check_surrounding()==False:
+        shipsai.append(ship(boatlengths[i],orientation)) 
+    for j in range(len(shipsai)-1):
+        while shipsai[j].check_placement(x,y)==False or shipsai[j].projection[j].check_surrounding()==False:
             x,y=rancoord()       
-        shipsai[i].projet(x,y,caseadversaire)
-        ship.placement(x,y,caseadversaire)
-
-"""            
+        shipsai[j].projet(x,y,caseadversaire)
+        ship.placement(x,y,caseadversaire)           
             
             
 def aiattack():
