@@ -13,6 +13,8 @@ casebatx=0
 casebaty=0
 ships=[]
 shipsai=[]
+totalhits=0
+hits=0
 #==============================================================================
 
 master = tk.Tk()
@@ -337,9 +339,20 @@ def placeboatsai():
         shipsai[j].placement(x,y,caseadversaire)
         shipsai[j].projet(x,y,caseadversaire)
 
-          
-            
-            
+def hit():
+    global hits
+    global totalhits
+    a=0
+    for i in range(9):
+        for j in range(9):
+            if cases[i][j].case_attaquee==True and cases[i][j].bateau==True:
+                a=a+1
+    totalhits=a
+    if totalhits==hits+1:
+        hits=hits+1
+        return True
+    
+
 def aiattack():
     time.sleep(0.3)
     global sens
@@ -364,23 +377,15 @@ def aiattack():
                                 while essai==False:
                                     if cases[casebatx][casebaty-1].case_attaquee==False: 
                                         cases[casebatx][casebaty-1].attacked()
-                                        if cases[casebatx][casebaty-1].bateau==True: 
-                                            aiattack()
                                         essai=True
                                     elif cases[casebatx][casebaty-2].case_attaquee==False:
                                         cases[casebatx][casebaty-2].attacked()
-                                        if cases[casebatx][casebaty-2].bateau==True: 
-                                            aiattack()
                                         essai=True
                                     elif cases[casebatx][casebaty-3].case_attaquee==False: 
                                         cases[casebatx][casebaty-3].attacked()
-                                        if cases[casebatx][casebaty-3].bateau==True: 
-                                            aiattack()
                                         essai=True
                                     elif cases[casebatx][casebaty-4].case_attaquee==False: 
                                         cases[casebatx][casebaty-4].attacked()
-                                        if cases[casebatx][casebaty-4].bateau==True: 
-                                            aiattack()
                                         essai=True
                                         
                             else:
@@ -389,32 +394,24 @@ def aiattack():
                                     essai=True
                                     if cases[casebatx][casebaty+1].bateau==False:
                                         direction="haut"
-                                    else:
-                                        aiattack()
                                             
                                 elif cases[casebatx][casebaty+2].case_attaquee==False: 
                                     cases[casebatx][casebaty+2].attacked()
                                     essai=True
                                     if cases[casebatx][casebaty+2].bateau==False:
                                         direction="haut"
-                                    else:
-                                        aiattack()
                                         
                                 elif cases[casebatx][casebaty+3].case_attaquee==False:
                                     cases[casebatx][casebaty+3].attacked()
                                     essai=True
                                     if cases[casebatx][casebaty+3].bateau==False:
                                         direction="haut"
-                                    else:
-                                        aiattack()
-                                            
+
                                 elif cases[casebatx][casebaty+4].case_attaquee==False:
                                     cases[casebatx][casebaty+4].attacked()
                                     essai=True
                                     if cases[casebatx][casebaty+4].bateau==False:
                                         direction="haut"
-                                    else:
-                                        aiattack()
                                         
 
                         except IndexError:
@@ -433,23 +430,15 @@ def aiattack():
                                 while essai==False:
                                     if cases[casebatx-1][casebaty].case_attaquee==False:
                                         cases[casebatx-1][casebaty].attacked()
-                                        if cases[casebatx-1][casebaty].bateau==True: 
-                                            aiattack()
                                         essai=True
                                     elif cases[casebatx-2][casebaty].case_attaquee==False: 
                                         cases[casebatx-2][casebaty].attacked()
-                                        if cases[casebatx-2][casebaty].bateau==True: 
-                                            aiattack()
                                         essai=True
                                     elif cases[casebatx-3][casebaty].case_attaquee==False: 
                                         cases[casebatx-3][casebaty].attacked()
-                                        if cases[casebatx-3][casebaty].bateau==True: 
-                                            aiattack()
                                         essai=True
                                     elif cases[casebatx-4][casebaty].case_attaquee==False:
                                         cases[casebatx-4][casebaty].attacked()
-                                        if cases[casebatx-4][casebaty].bateau==True: 
-                                            aiattack()
                                         essai=True
                             else:
                                 if cases[casebatx+1][casebaty].case_attaquee==False: 
@@ -457,34 +446,27 @@ def aiattack():
                                     essai=True
                                     if cases[casebatx+1][casebaty].bateau==False:
                                         direction="gauche"
-                                    else:
-                                        aiattack()
                                         
                                 elif cases[casebatx+2][casebaty].case_attaquee==False:
                                     cases[casebatx+2][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+2][casebaty].bateau==False:
                                         direction="gauche"
-                                    else:
-                                        aiattack()
                                 elif cases[casebatx+3][casebaty].case_attaquee==False:
                                     cases[casebatx+3][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+3][casebaty].bateau==False:
                                         direction="gauche"
-                                    else:
-                                        aiattack()
+
                                 elif cases[casebatx+4][casebaty].case_attaquee==False: 
                                     cases[casebatx+4][casebaty].attacked()
                                     essai=True
                                     if cases[casebatx+4][casebaty].bateau==False:
                                         direction="gauche"
-                                    else:
-                                        aiattack()
     
                         except IndexError:
                             pass
-                                
+        
             if sens=="unknown":
                 try:
                     essai=False
@@ -495,7 +477,6 @@ def aiattack():
                                 cases[casebatx+1][casebaty].attacked()
                                 if cases[casebatx+1][casebaty].bateau==True:
                                     sens="horizontal"
-                                    aiattack()
                                 else:
                                     sens="unknown"
                                 essai=True
@@ -506,7 +487,6 @@ def aiattack():
                                 cases[casebatx-1][casebaty].attacked()
                                 if cases[casebatx-1][casebaty].bateau==True:
                                     sens="horizontal"
-                                    aiattack()
                                 else:
                                     sens="unknown"
                                 essai=True
@@ -515,7 +495,6 @@ def aiattack():
                                 cases[casebatx][casebaty+1].attacked()
                                 if cases[casebatx][casebaty+1].bateau==True:
                                     sens="vertical"
-                                    aiattack()
                                 else:
                                     sens="unknown"
                                 essai=True
@@ -525,7 +504,6 @@ def aiattack():
                                 essai==True
                                 if cases[casebatx][casebaty-1].bateau==True:
                                     sens="vertical"
-                                    aiattack()
                                 else:
                                     sens="unknown"
                                 essai=True
@@ -542,10 +520,11 @@ def aiattack():
                     sens="unknown"
                     casebatx=a
                     casebaty=b
-                    aiattack()
         except IndexError:
             pass    
         
+        if hit()==True:
+            aiattack()
     else:
         information.itemconfigure(1, text='It is your turn to play.')
 
