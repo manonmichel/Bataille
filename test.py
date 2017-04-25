@@ -117,13 +117,16 @@ class case:
                     if bateau_selectionne.projection[i].check_surrounding()==False:
                         information.itemconfigure(1, text='Boats can not be adjacent.')
                         environs=False
+                        ships.pop()
                 if environs==True:
                     if bateau_selectionne.check_placement(self.x, self.y)==False:
                         information.itemconfigure(1, text='Boat out of area.')
+                        ships.pop()
                     else:
                         bateau_selectionne.placement(self.x, self.y, cases)
                         selectable=True
                         all_placed()
+                        actualise(ships)
             else:   
                 if player_turn==True:
                     self.attacked()
@@ -713,6 +716,25 @@ def info():
     if c_selected==0:
         information.itemconfigure(1, text='Use arrow keys to modify the orientation of the boat. \n Place boats on the bottom grid, this one is yours.')
 #====================================================================
+vies=tk.Canvas(master, width=300, height=300)
+vies.grid(column=2,row=0)
+
+def calcul_vie(liste):
+    longueur_totale=0
+    vie=0
+    for i in range(len(liste)):
+        longueur_totale=longueur_totale+liste[i].length
+        vie=vie+(liste[i].bateau_en_vie()*liste[i].length)
+        print(vie)
+    if longueur_totale!=0:
+        print(vie/longueur_totale*100)
+        return vie/longueur_totale*100
+        
+joueur=vies.create_text(150,20,text='Joueur:'+str(calcul_vie(ships))+'%')
+
+def actualise(liste):
+    vies.itemconfigure(1, text='Joueur:'+str(calcul_vie(liste))+'%')
+
 def quel_bateau(case):
     for i in range(len(ships)):
         for j in range(len(ships[i].endroits)):
