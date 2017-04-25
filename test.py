@@ -281,13 +281,11 @@ class ai:
             player_turn=False
         return couleur
     
-    
 def placeboatsai():
     global orientation
     global shipsai
     global caseadversaire
     boatlengths=[5,4,3,3,2,2,2]
-    x,y=rancoord()
     for i in range(len(boatlengths)):
         random=ranai()
         if random==1:
@@ -299,12 +297,14 @@ def placeboatsai():
         elif random==4:
             orientation="W"
         shipsai.append(ship(boatlengths[i],orientation)) 
-    for j in range(len(shipsai)-1):
-        while shipsai[j].check_placement(x,y)==False or shipsai[j].projection[j].check_surrounding()==False:
-            x,y=rancoord()       
+    for j in range(len(shipsai)):
+        x,y=rancoord()
+        while shipsai[j].check_placement(x,y)==False: #or shipsai[j].projection[j].check_surrounding()==False:
+            x,y=rancoord()
+        shipsai[j].placement(x,y,caseadversaire)
         shipsai[j].projet(x,y,caseadversaire)
-        ship.placement(x,y,caseadversaire)           
-            
+
+        
             
 def aiattack():
     time.sleep(0.3)
