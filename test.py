@@ -351,7 +351,7 @@ def placeboatsai():
         
     for j in range(len(shipsai)):
         for k in range(len(shipsai[i].projection)-1):
-            while shipsai[j].check_placement(x,y)==False or shipsai[j].projection[k]==None or shipsai[j].projection[k]=="None" or shipsai[j].projection[k].check_surrounding()==False:
+            while shipsai[j].check_placement(x,y)==False or shipsai[j].projection[k].check_surrounding()==False:
                 try:
                     shipsai[j].orientation=random_orientation()
                     del shipsai[i].projection[:]
