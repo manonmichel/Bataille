@@ -539,6 +539,7 @@ def aiattack():
             pass    
         
         if hit()==True:
+            cadre.update()
             aiattack()
     else:
         information.itemconfigure(1, text='It is your turn to play.')
