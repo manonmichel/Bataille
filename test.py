@@ -302,7 +302,7 @@ class ai:
             print(self.case_attaquee and self.bateau)
             player_turn=False
             information.itemconfigure(1, text='It is not your turn to play.')
-            cadre.after(500, aiattack)
+            cadre.after(300, aiattack)
         else:
             information.itemconfigure(1, text='It is not your turn to play.')
         
