@@ -369,7 +369,6 @@ def hit():
     
 
 def aiattack():
-    time.sleep(0.3)
     global sens
     global direction
     global casebatx
@@ -539,8 +538,7 @@ def aiattack():
             pass    
         
         if hit()==True:
-            cadre.update()
-            aiattack()
+            cadre.after(300, aiattack)
     else:
         information.itemconfigure(1, text='It is your turn to play.')
 
