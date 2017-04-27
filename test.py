@@ -318,36 +318,43 @@ class ai:
             couleur="blue"
             player_turn=False
         return couleur
-  
+def random_orientation(): 
+    random=ranai()
+    if random==1:
+        orientation="N"
+    elif random==2:
+        orientation="E"
+    elif random==3:
+        orientation="S"
+    elif random==4:
+        orientation="W" 
+    return orientation
+    
 def placeboatsai():
-    global orientation
     global shipsai
     global caseadversaire
     boatlengths=[5,4,3,3,2,2,2]
+
     for i in range(len(boatlengths)):
-        random=ranai()
-        if random==1:
-            orientation="N"
-        elif random==2:
-            orientation="E"
-        elif random==3:
-            orientation="S"
-        elif random==4:
-            orientation="W"
+        orientation=random_orientation()
         x,y=rancoord()
         shipsai.append(ship(boatlengths[i],orientation))
-        for l in range(boatlengths[i]):                         #coordonees sans importance pour eviter les erreurs d'index
-            shipsai[i].projection.append(caseadversaire[1][1])
         
-    for j in range(len(shipsai)-1):
-        for k in range(len(shipsai[i].projection)-1):
-            while shipsai[j].check_placement(x,y)==False or shipsai[j].projection[k].check_surrounding()==False or shipsai[j].projection[k]=="None":
+        for l in range(boatlengths[i]):                         #coordonees sans importance pour eviter les erreurs d'index
+            x,y=rancoord()
+            shipsai[i].projection.append(caseadversaire[x][y])
+        
+    for j in range(len(shipsai)):
+        for k in range(len(shipsai[i].projection)):
+            while shipsai[j].check_placement(x,y)==False or shipsai[j].projection[k]==None or shipsai[j].projection[k]=="None" or shipsai[j].projection[k].check_surrounding()==False:
                 x,y=rancoord()
+                shipsai[j].orientation=random_orientation()
                 del shipsai[i].projection[:]
-                shipsai[i].projection.append(shipsai[i].projet(x,y,caseadversaire))
-                print(shipsai[i].projection)
+                shipsai[i].projection.append(shipsai[j].projet(x,y,caseadversaire))
+                print(shipsai[j].projection)
                     
         shipsai[j].placement(x,y,caseadversaire)           
+        
 def hit():
     global hits
     global totalhits
