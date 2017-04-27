@@ -341,20 +341,23 @@ def placeboatsai():
         x,y=rancoord()
         shipsai.append(ship(boatlengths[i],orientation))
         
-        for l in range(boatlengths[i]):                     
+        for l in range(boatlengths[i]):                         #coordonees sans importance pour eviter les erreurs d'index
             x,y=rancoord()
             shipsai[i].projection.append(caseadversaire[x][y])
         
     for j in range(len(shipsai)):
         for k in range(len(shipsai[i].projection)):
             while shipsai[j].check_placement(x,y)==False or shipsai[j].projection[k]==None or shipsai[j].projection[k]=="None" or shipsai[j].projection[k].check_surrounding()==False:
-                x,y=rancoord()
-                shipsai[j].orientation=random_orientation()
-                del shipsai[j].projection[:]
-                shipsai[j].projection.append(shipsai[j].projet(x,y,caseadversaire))
-                print(shipsai[j].projection)
+                try:
+                    x,y=rancoord()
+                    shipsai[j].orientation=random_orientation()
+                    del shipsai[j].projection[:]
+                    shipsai[j].projection.append(shipsai[j].projet(x,y,caseadversaire))
+                except IndexError:
+                    pass
+        print(shipsai[j].projection)
                     
-        shipsai[j].placement(x,y,caseadversaire)     
+        shipsai[j].placement(x,y,caseadversaire)  
         
 def hit():
     global hits
